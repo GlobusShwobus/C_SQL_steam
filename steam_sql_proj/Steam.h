@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Entity.h"
+#include <fstream>
 #include <curl/curl.h>
 
-#define CURL_CERT_PATH "../include/curl_inc/cacert.pem"
+
+//#define CURL_CERT_PATH "../include/curl_inc/cacert.pem"
 
 /*
 This section about making web requests. Importanly libcurl library is used and a certificate is required. If missing,
@@ -29,7 +31,7 @@ namespace ORDO {
 
         const std::string api_key;
         const std::string user_id;
-
+        
         class STEAM_URL_CREATOR;
         class LIBCURL_API_CALL;
         class LIBMEM;
@@ -107,6 +109,30 @@ namespace ORDO {
 
     class STEAM::LIBCURL_API_CALL {
 
+        static std::string& CertPath() {
+            static bool is_set = false;
+            static std::string cert_path;
+
+            if (!is_set) {
+                std::ifstream file("cacert.pem");
+                if (file.good()) {
+                    cert_path = "cacert.pem";
+                    is_set = true;
+                }
+                else {
+                    file.open("../include/curl_inc/cacert.pem");
+                    if (file.good()) {
+                        cert_path = "../include/curl_inc/cacert.pem";
+                        is_set = true;
+                    }
+                    else {
+                        throw std::runtime_error("UNABLE TO DETERMINE PATH TO CERTIFICATE");
+                    }
+                }
+            }
+
+            return cert_path;
+        }
 
         //this function is defined as per how libcurl library wants it. used by curl_easy_setopt CURLOPT_WRITEFUNCTION, requires to be super specifc
         static size_t MemCallBack(void* contents, size_t size, size_t new_mem_blocks, void* user_response);

@@ -270,7 +270,7 @@ namespace ORDO {
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, LIBCURL_API_CALL::MemCallBack);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &data);
 
-        curl_easy_setopt(curl, CURLOPT_CAINFO, CURL_CERT_PATH);
+        curl_easy_setopt(curl, CURLOPT_CAINFO, CertPath().c_str());
 
         result = curl_easy_perform(curl);
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &data.httpcode);
