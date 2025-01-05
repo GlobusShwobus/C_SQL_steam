@@ -18,7 +18,7 @@ namespace ORDO {
     void DATA::Display()const {
         if (!data.empty()) {
             for (const std::unique_ptr<nlohmann::json>& entry : data) {
-                PrintM("\n" + entry->dump(4), ISTR_MSG::good);
+                printf("\n%s", entry->dump().c_str());
             }
             HSTR::Wait();
         }
@@ -176,7 +176,7 @@ namespace ORDO {
 
             std::vector<std::string> folder_contents = GetFolderContents();
             Refresh();
-            PrintM("\nEnter file name >>> ", ISTR_MSG::good);
+            printf("\nEnter file name >>> ");
             std::string new_file_name = InputString(INPUT_T::numchars);
 
             for (const auto& each : data) {

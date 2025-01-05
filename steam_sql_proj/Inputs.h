@@ -80,9 +80,6 @@ namespace ORDO { //input string
     void LogMessage(const std::string& message, const ISTR_MSG info);
     void LogMessage(const char* message, const ISTR_MSG info);
 
-    void PrintM(const std::string& msg, const ISTR_MSG info);
-    void PrintM(const char* msg, const ISTR_MSG info);
-
     void PrintList(const std::vector<std::pair<std::string, std::string>>& list);
 
     namespace LOGSTR { // message/error log

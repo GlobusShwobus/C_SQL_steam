@@ -126,7 +126,7 @@ namespace ORDO {
     std::unique_ptr<STEAM> SteamLogIn() {
         while (true) {
             Refresh();
-            PrintM("\nVerify connection to steam web API or esc to exit\n=====================================================================================\n", ISTR_MSG::other);
+            printf("\nVerify connection to steam web API or esc to exit\n=====================================================================================\n");
 
             const std::string steam_api_key = EnterString(INPUT_T::numchars, "Enter Steam API key >>> ");
             const std::string steam_user_id = EnterString(INPUT_T::numchars, "Enter Steam user id >>> ");
@@ -147,7 +147,7 @@ namespace ORDO {
     std::unique_ptr<DATABASE> SQLLogIn(const STEAM& handle) {
         while (true) {
             Refresh();
-            PrintM("\nVerify connection to SQL local server or esc to exit\n=====================================================================================\n", ISTR_MSG::other);
+            printf("\nVerify connection to SQL local server or esc to exit\n=====================================================================================\n");
 
             const std::string _server_name = EnterString(INPUT_T::numchars, "Enter Server name >>> ");
             const std::string _server_password = EnterString(INPUT_T::numchars, "Enter password >>> ");

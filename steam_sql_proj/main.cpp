@@ -9,12 +9,12 @@ int main() {
 
     std::unique_ptr<STEAM> handle = SteamLogIn();
     if (handle == nullptr) {
-        PrintM("\nConnection proccess aborted. Can not continue without it.", ISTR_MSG::good);
+        printf("\nConnection proccess aborted. Can not continue without it.");
     }
 
     std::unique_ptr<DATABASE> database = SQLLogIn(*handle);
     if (database == nullptr) {
-        PrintM("\nConnection proccess aborted. Can not continue without it.", ISTR_MSG::good);
+        printf("\nConnection proccess aborted. Can not continue without it.");
     }
 
     MDATA data_col;

@@ -40,10 +40,10 @@ namespace ORDO {
             std::unique_ptr<nlohmann::json> schema_achievements = LIBCURL_API_CALL::Request(ACHIEVEMENT::ach_schema, api_key, user_id, app_id);
 
             if (into.Add(std::move(global_achievements), std::move(player_achievements), std::move(schema_achievements))) {
-                PrintM(std::string("\nData recieved for >>> ") + pair.second, ISTR_MSG::good);
+                printf("\nData recieved for >>> %s", pair.second.c_str());
             }
             else {
-                PrintM(std::string("\nData Insertion skiped due to empty data >>> ") + pair.second, ISTR_MSG::fail);
+                printf("\nData Insertion skiped due to empty data >>> %s", pair.second.c_str());
             }
         }
     }
@@ -86,9 +86,9 @@ namespace ORDO {
             while (true) {
 
                 PrintList(*owned_games_list);
-                PrintM("\n\nCurrent Wishlsit::\n=====================================================================================\n", ISTR_MSG::other);
+                printf("\n\nCurrent Wishlsit::\n=====================================================================================\n");
                 PrintList(*wishlist);
-                PrintM(err_msg, ISTR_MSG::fail);
+                printf(err_msg.c_str());
                 printf("\n\nInput >>> ");
 
 

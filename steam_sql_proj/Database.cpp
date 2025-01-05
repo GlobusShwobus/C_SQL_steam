@@ -91,7 +91,7 @@ namespace ORDO {
     }
     void DATABASE::CreateNewSchema()const {
         Refresh();
-        PrintM("\nEnter schema name >>> ", ISTR_MSG::good);
+        printf("\nEnter schema name >>> ");
         const std::string name = InputString(INPUT_T::chars);
 
         if (name.empty()) {
@@ -116,7 +116,7 @@ namespace ORDO {
     void DATABASE::AssignWorkingSchema() {
         try {
             Refresh();
-            PrintM("\nSet working schema::\n=====================================================================================\n", ISTR_MSG::other);
+            printf("\nSet working schema::\n=====================================================================================\n");
 
             const auto list = GetSchemaList();
             if (list->empty()) {

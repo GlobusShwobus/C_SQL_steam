@@ -160,32 +160,20 @@ namespace ORDO {
         return "\033[97m";
     }
     void LogError(const std::string& error, const ISTR_ERROR info) {
-
-        const std::string entry = HSTR::MessageColor(info) + error + "\033[0m";
-
         LOGSTR::ERROR_LOG::Add(error);
-        LOGSTR::MESSAGE_LOG::Add(entry);
+        LOGSTR::MESSAGE_LOG::Add(error);
     }
     void LogError(const char* error, const ISTR_ERROR info) {
-        const std::string entry = HSTR::MessageColor(info) + std::string(error) + "\033[0m";
-
         LOGSTR::ERROR_LOG::Add(error);
-        LOGSTR::MESSAGE_LOG::Add(entry);
+        LOGSTR::MESSAGE_LOG::Add(error);
     }
     void LogMessage(const std::string& message, const ISTR_MSG info) {
-        const std::string entry = HSTR::MessageColor(info) + message + "\033[0m";
-        LOGSTR::MESSAGE_LOG::Add(entry);
+        LOGSTR::MESSAGE_LOG::Add(message);
     }
     void LogMessage(const char* message, const ISTR_MSG info) {
-        const std::string entry = HSTR::MessageColor(info) + std::string(message) + "\033[0m";
-        LOGSTR::MESSAGE_LOG::Add(entry);
+        LOGSTR::MESSAGE_LOG::Add(message);
     }
-    void PrintM(const std::string& msg, const ISTR_MSG info) {
-        printf("%s%s%s", HSTR::MessageColor(info), msg.c_str(), "\033[0m");
-    }
-    void PrintM(const char* msg, const ISTR_MSG info) {
-        printf("%s%s%s", HSTR::MessageColor(info), msg, "\033[0m");
-    }
+
     void PrintList(const std::vector<std::pair<std::string, std::string>>& list) {
         size_t i = 1;
 
@@ -239,6 +227,6 @@ namespace ORDO {
         printf("%s", "\n\n=====================================================================================");
     }
     void ClearTerminal() {
-        printf("\033[2J\033[H");
+        system("cls");
     }
 }

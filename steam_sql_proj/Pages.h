@@ -6,22 +6,22 @@
 
 #define MAIN_PAGE "\n[1] Steam\n[2] MySQL\n[3] Exit\n\nInput >>> "
 
-#define STEAM_PAGE_MAIN "\033[34mSelect which form of data to work with\n=====================================================================================\033[0m\n\n"
+#define STEAM_PAGE_MAIN "Select which form of data to work with\n=====================================================================================\n\n"
 #define STEAM_PAGE_MAIN_SELECTS "[1] Player summary\n[2] Player owned games\n[3] Player recent activity\n[4] Get achievements\n[5] Back\n\nInput >>> "
 
-#define STEAM_PLAYER_PAGE "\033[34mDecide further action. Requesting data a second time will overwrite the first entry\n=====================================================================================\033[0m\n\n"
+#define STEAM_PLAYER_PAGE "Decide further action. Requesting data a second time will overwrite the first entry\n=====================================================================================\n\n"
 #define STEAM_PLAYER_PAGE_SELECTS "[1] Make web request\n[2] Show\n[3] Erase\n[4] Make JSON file\n[5] Back\n\nInput >>> "
 
-#define STEAM_ACHIEVEMENT_PAGE "\033[34mDecide further action. Requesting from a list does an extra API call to recieve a full\nlist tied to the user. Also due to Steam API setup, there are 3 calls made per game\nto retrieve all data.\n=====================================================================================\033[0m\n\n"
+#define STEAM_ACHIEVEMENT_PAGE "Decide further action. Requesting from a list does an extra API call to recieve a full\nlist tied to the user. Also due to Steam API setup, there are 3 calls made per game\nto retrieve all data.\n=====================================================================================\n\n"
 #define STEAM_ACHIEVEMENT_PAGE_SELECTS "[1] Reqeust everything\n[2] Request from a list\n[3] Dump on screen\n[4] Erase everything\n[5] Make JSON files\n[6] Back\n\nInput >>> "
 
-#define SQL_PAGE_MAIN "\033[34mIn order to make any SQL injections, the desired schema has to be set manually.\nCreating a new schema does not set it.\n=====================================================================================\033[0m\n\n"
+#define SQL_PAGE_MAIN "In order to make any SQL injections, the desired schema has to be set manually.\nCreating a new schema does not set it.\n=====================================================================================\n\n"
 #define SQL_PAGE_MAIN_SELECTS "[1] Set schema\n[2] Create new schema\n[3] Injections\n[4] Back\n\nInput >>> "
 
-#define SQL_INJECTIONS_PAGE "\033[34mTables are predefined in a relational way in which 'player_summary' is at the top of the hierarchy\n=====================================================================================\033[0m\n\n"
+#define SQL_INJECTIONS_PAGE "Tables are predefined in a relational way in which 'player_summary' is at the top of the hierarchy\n=====================================================================================\n\n"
 #define SQL_INJECTIONS_PAGE_SELECTS "[1] Insert player summary\n[2] Insert game list\n[3] Insert recent activity log\n[4] Insert achievements\n[5] Back\n\nInput >>> "
 
-#define MISC_PAGE "\033[34mMisc...\n=====================================================================================\033[0m\n\n"
+#define MISC_PAGE "Misc...\n=====================================================================================\n\n"
 #define MISC_PAGE_SELECTS "[1] Save Error log\n[2] Save default login\n[3] Reseat working schema\n[4] Reseat working steam id\n[5] Erase all heap data\n[6] Back\n\nInput >>> "
 
 
