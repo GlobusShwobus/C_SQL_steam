@@ -1,30 +1,6 @@
 #include "Inputs.h"
 
 namespace ORDO {
-    std::string InputString(const INPUT_T restriction) {
-        std::string input_str;
-
-        for (char c = 0; c != UK_RETURN; c = _getch()) {
-            if (HSTR::ValidInput(restriction, c)) {
-                _putch(c);
-                input_str += c;
-            }
-            else if (c == UK_BACKSPACE && input_str.size() > 0) {
-                _putch('\b');
-                _putch(' ');
-                _putch('\b');
-                input_str.pop_back();
-            }
-            else if (c == UK_COPY) {
-                input_str += HSTR::HandleCopiedData(restriction);
-            }
-            else if (c == UK_ESCAPE) {
-                input_str = UK_ESCAPE;
-                break;
-            }
-        }
-        return input_str;
-    }
 
     int Select(const unsigned int range, const INPUT_T restriction) {
         std::string number;
@@ -56,24 +32,11 @@ namespace ORDO {
 
         return std::stoi(number);
     }
-    bool HSTR::ValidInput(const INPUT_T restriction, char c) {
-        switch (restriction) {
-        case INPUT_T::nums:       return (c >= UK_ZERO && c <= UK_NINE);
-        case INPUT_T::numsNoZero: return (c >= UK_ONE && c <= UK_NINE);
-        case INPUT_T::chars:      return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || c == UK_UNDERSCORE;
-        case INPUT_T::numchars:   return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || (c >= UK_ZERO && c <= UK_NINE) || c == UK_UNDERSCORE;
-        case INPUT_T::printables: return (c >= UK_SYMBOL_START && c <= UK_SYMBOL_END);
-        }
-        return false;
-    }
+
     bool HSTR::ContainsExit(const std::string& str) {
         return str.find(UK_ESCAPE) != std::string::npos;
     }
-    void HSTR::RemoveSymbols(std::string& from, const INPUT_T restriction) {
-        from.erase(std::remove_if(from.begin(), from.end(), [restriction](const char c) {
-            return !ValidInput(restriction, c);
-            }), from.end());
-    }
+
     void HSTR::RemoveSymbols(std::string& from, const std::string& symbols) {
         from.erase(std::remove_if(from.begin(), from.end(), [&symbols](const char c) {
             return symbols.find(c) != std::string::npos;
@@ -85,15 +48,6 @@ namespace ORDO {
             }), from.end());
     }
 
-    std::string HSTR::HandleCopiedData(const INPUT_T restriction) {
-        std::string copy = HSTR::GetClipboard();
-        RemoveSymbols(copy, restriction);
-
-        for (const char c : copy) {
-            _putch(c);
-        }
-        return copy;
-    }
     void HSTR::HandleSelectRange(const unsigned int range, std::string& number) {
         try {
             int val = std::stoi(number);

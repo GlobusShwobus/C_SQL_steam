@@ -67,21 +67,78 @@ other junk not sure
 
 namespace ORDO { //input string
 
-    enum class INPUT_T {
-        nums, numsNoZero, chars, numchars, printables
+    //input string
+    class ISTR {
+
+        enum class ASCII_TYPE {
+            nums, numsNoZero, chars, numsAndChars, printables
+        };
+
+        static bool ASCIICheck(const ASCII_TYPE t, char c) {
+            switch (t) {
+            case ASCII_TYPE::nums:           return (c >= UK_ZERO && c <= UK_NINE);
+            case ASCII_TYPE::numsNoZero:     return (c >= UK_ONE && c <= UK_NINE);
+            case ASCII_TYPE::chars:          return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || c == UK_UNDERSCORE;
+            case ASCII_TYPE::numsAndChars:   return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || (c >= UK_ZERO && c <= UK_NINE) || c == UK_UNDERSCORE;
+            case ASCII_TYPE::printables:     return (c >= UK_SYMBOL_START && c <= UK_SYMBOL_END);
+            }
+            throw "Invalid argument";
+        }
+        static void CopiedContent(const ASCII_TYPE t, std::string& mutated) {
+            std::string copy = HSTR::GetClipboard();//get all data in text form from clipboard
+
+            copy.erase(std::remove_if(copy.begin(), copy.end(), [&t](const char c) { //remove every symbol which does not pass the check
+                return !ASCIICheck(t, c);
+                }), copy.end());
+
+
+            for (const char c : copy) { //print on screen new data + store it
+                _putch(c);
+                mutated += c;
+            }
+        }
+    public:
+
+        static bool IString(std::string& mutate) {
+            static constexpr ASCII_TYPE restriction = ASCII_TYPE::numsAndChars;//shorthand to pass restructions for inputs (may be depricated in the future)
+            const size_t initial_size = mutate.size();//for backspacing, don't want to erase previous data
+            std::string container = mutate;//temporary container
+
+            for (char c = 0; c != UK_RETURN && container.size() < 255; c = _getch()) {//get input untill enter key is pressed (and input is short)
+
+                if (ASCIICheck(restriction, c)) {
+                    _putch(c);
+                    container += c;
+                }
+                else if (c == UK_BACKSPACE && container.size() > initial_size) {
+                    _putch('\b');
+                    _putch(' ');
+                    _putch('\b');
+                    container.pop_back();
+                }
+                else if (c == UK_COPY) {
+                    CopiedContent(restriction, container);
+                }
+                else if (c == UK_ESCAPE) {
+                    return false;
+                }
+
+            }
+            mutate.insert(initial_size, std::move(container));
+            return true;
+        }
+
+
+
     };
 
-    std::string InputString(const INPUT_T restriction);
     int Select(const unsigned int range, const INPUT_T restriction = INPUT_T::nums);
 
     namespace HSTR { //helper/junk string ops
-        bool ValidInput(const INPUT_T restriction, char c);
         bool ContainsExit(const std::string& str);
-        void RemoveSymbols(std::string& from, const INPUT_T restriction);
         void RemoveSymbols(std::string& from, const std::string& symbols);
         void RemoveSymbols(std::string& from, const char symbol);
 
-        std::string HandleCopiedData(const INPUT_T restriction);
         void HandleSelectRange(const unsigned int range, std::string& number);
         void Wait();
 
