@@ -41,6 +41,29 @@
 #define SR_EIGHT 8           //select range 8
 #define SR_NINE 9            //select range 9
 
+/*
+separation of concern:
+
+function can not return 0 if premature carrige return is prssed
+function can not return 0 if escape key is pressed
+both above have to be resolved by a middleman
+have functions that take string input, take ranged based number input, take any number input
+
+
+
+logging a message and logging an error must be different
+error has to ONLY be something that blocks any type of progress but can be resolved during runtime
+messages can be any type of failures/successes/or any other feedback but not something which requires fixing code
+errors should be stord permantly and loged into a file to keep track of things in need of fixing
+messages can be ephemeral
+
+
+
+in terms of access: inputs, loging and misc string manipulation should be divided up and type handling should not be user concern
+
+other junk not sure
+*/
+
 
 namespace ORDO { //input string
 
