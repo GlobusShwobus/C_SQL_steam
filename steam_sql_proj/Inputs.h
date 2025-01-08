@@ -91,10 +91,6 @@ namespace ORDO { //input string
                 }), copy.end());
 
 
-            if (t == ASCII_TYPE::nums && mutate.empty() && !copy.empty() && copy.front() == UK_ZERO) {//if dealing with num types, first didgit can't be 0
-                copy.erase(0, 1);
-            }
-
             mutate += copy;
 
             if (mutate.size() > max_size) {
@@ -154,9 +150,6 @@ namespace ORDO { //input string
                     break;
                 }
                 if (ASCIICheck(restriction, c)) {
-                    if (str.empty() && c == UK_ZERO) {//first number can't be 0
-                        continue;
-                    }
                     str += c;
                 }
                 else if (c == UK_BACKSPACE && !str.empty()) {
