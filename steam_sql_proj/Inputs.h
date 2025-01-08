@@ -99,33 +99,36 @@ namespace ORDO { //input string
         }
     public:
 
-        static bool IString(std::string& mutate) {
+        static std::string IString() {
             static constexpr ASCII_TYPE restriction = ASCII_TYPE::numsAndChars;//shorthand to pass restructions for inputs (may be depricated in the future)
-            const size_t initial_size = mutate.size();//for backspacing, don't want to erase previous data
-            std::string container = mutate;//temporary container
 
-            for (char c = 0; c != UK_RETURN && container.size() < 255; c = _getch()) {//get input untill enter key is pressed (and input is short)
+            std::string str;
 
+            while (true || str.size() < 50) {
+                const char c = _getch();
+
+                if (c == UK_RETURN && !str.empty()) {
+                    break;
+                }
                 if (ASCIICheck(restriction, c)) {
                     _putch(c);
-                    container += c;
+                    str += c;
                 }
-                else if (c == UK_BACKSPACE && container.size() > initial_size) {
+                else if (c == UK_BACKSPACE && str.size() > 0) {
                     _putch('\b');
                     _putch(' ');
                     _putch('\b');
-                    container.pop_back();
+                    str.pop_back();
                 }
                 else if (c == UK_COPY) {
-                    CopiedContent(restriction, container);
+                    CopiedContent(restriction, str);
                 }
                 else if (c == UK_ESCAPE) {
-                    return false;
+                    str = "";
                 }
-
             }
-            mutate.insert(initial_size, std::move(container));
-            return true;
+
+            return str;
         }
 
 
