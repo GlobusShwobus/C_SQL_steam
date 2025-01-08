@@ -71,20 +71,19 @@ namespace ORDO { //input string
     class ISTR {
 
         enum class ASCII_TYPE {
-            nums, numsNoZero, chars, numsAndChars, printables
+            nums, chars, numsAndChars, printables
         };
 
         static bool ASCIICheck(const ASCII_TYPE t, char c) {
             switch (t) {
             case ASCII_TYPE::nums:           return (c >= UK_ZERO && c <= UK_NINE);
-            case ASCII_TYPE::numsNoZero:     return (c >= UK_ONE && c <= UK_NINE);
             case ASCII_TYPE::chars:          return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || c == UK_UNDERSCORE;
             case ASCII_TYPE::numsAndChars:   return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || (c >= UK_ZERO && c <= UK_NINE) || c == UK_UNDERSCORE;
             case ASCII_TYPE::printables:     return (c >= UK_SYMBOL_START && c <= UK_SYMBOL_END);
             }
             throw "Invalid argument";
         }
-        static void CopiedContent(const ASCII_TYPE t, std::string& mutated) {
+        static void CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size) {
             std::string copy = HSTR::GetClipboard();//get all data in text form from clipboard
 
             copy.erase(std::remove_if(copy.begin(), copy.end(), [&t](const char c) { //remove every symbol which does not pass the check
@@ -92,46 +91,119 @@ namespace ORDO { //input string
                 }), copy.end());
 
 
-            for (const char c : copy) { //print on screen new data + store it
-                _putch(c);
-                mutated += c;
+            if (t == ASCII_TYPE::nums && mutate.empty() && !copy.empty() && copy.front() == UK_ZERO) {//if dealing with num types, first didgit can't be 0
+                copy.erase(0, 1);
+            }
+
+            mutate += copy;
+
+            if (mutate.size() > max_size) {
+                mutate.resize(max_size);
+            }
+        }
+        static void TerminalPrint(const std::string& str) {
+            for (int i = 0; i < str.size(); ++i) {
+                _putch('\b');
+                _putch(' ');
+                _putch('\b');
+            }
+            for (char each : str) {
+                _putch(each);
             }
         }
     public:
 
-        static std::string IString() {
+        static std::string InputStr() {
             static constexpr ASCII_TYPE restriction = ASCII_TYPE::numsAndChars;//shorthand to pass restructions for inputs (may be depricated in the future)
-
+            static constexpr short max_input_len = 30;
             std::string str;
 
-            while (true || str.size() < 50) {
+            while (str.size() < max_input_len) {
                 const char c = _getch();
 
                 if (c == UK_RETURN && !str.empty()) {
                     break;
                 }
                 if (ASCIICheck(restriction, c)) {
-                    _putch(c);
                     str += c;
                 }
-                else if (c == UK_BACKSPACE && str.size() > 0) {
-                    _putch('\b');
-                    _putch(' ');
-                    _putch('\b');
+                else if (c == UK_BACKSPACE && !str.empty()) {
                     str.pop_back();
                 }
                 else if (c == UK_COPY) {
-                    CopiedContent(restriction, str);
+                    CopiedContent(restriction, str, max_input_len);
                 }
                 else if (c == UK_ESCAPE) {
-                    str = "";
+                    return "";
                 }
+
+                TerminalPrint(str);
             }
 
             return str;
         }
+        int InputNum() {
+            static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
+            static constexpr short max_num_digits = 9;
+            std::string str;
+
+            while (str.size() < max_num_digits) {
+                const char c = _getch();
+
+                if (c == UK_RETURN && !str.empty()) {
+                    break;
+                }
+                if (ASCIICheck(restriction, c)) {
+                    if (str.empty() && c == UK_ZERO) {//first number can't be 0
+                        continue;
+                    }
+                    str += c;
+                }
+                else if (c == UK_BACKSPACE && !str.empty()) {
+                    str.pop_back();
+                }
+                else if (c == UK_COPY) {
+                    CopiedContent(restriction, str, max_num_digits);
+                }
+                else if (c == UK_ESCAPE) {
+                    return -1;
+                }
+                TerminalPrint(str);
+            }
+
+            return std::stoi(str);
+        }
+
+        int InputRange(const unsigned int range) {
+            static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
+            std::string str;
 
 
+            while (true) {
+                const char c = _getch();
+
+                if (c == UK_RETURN && !str.empty()) {
+                    break;
+                }
+                if (ASCIICheck(restriction, c)) {
+                    if (str.empty() && c == UK_ZERO) {//first number can't be 0
+                        continue;
+                    }
+                    if (std::stoi(str+=c) > range) {
+                        str.pop_back();
+                    }
+                }
+                else if (c == UK_BACKSPACE && str.size() > 0) {
+                    str.pop_back();
+                }
+                else if (c == UK_ESCAPE) {
+                    return -1;
+                }
+                TerminalPrint(str);
+            }
+
+            return std::stoi(str);
+        }
 
     };
 
