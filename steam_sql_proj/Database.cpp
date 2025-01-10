@@ -4,11 +4,11 @@ namespace ORDO {
 
     void DATABASE::InsertPlayer(const DATA& data) {
         if (!isWorkingSchema()) {
-            LogMessage("A working schema has not been set", ISTR_MSG::fail);
+            LogMessage("A working schema has not been set");
             return;
         }
         if (data.Read().empty()) {
-            LogMessage("Continer is empty... Nothing to execute", ISTR_MSG::fail);
+            LogMessage("Continer is empty... Nothing to execute");
             return;
         }
         try {
@@ -23,12 +23,12 @@ namespace ORDO {
             IO_JSON_SQL::InsertData(data.Read(), steam_id, data.type, *pstmt);
         }
         catch (const std::exception& e) {
-            LogError(std::string("Insertion logic failed: ") + e.what(), ISTR_ERROR::hard);
+            LogError(std::string("Insertion logic failed: ") + e.what());
         }
     }
     void DATABASE::InsertAchievements(const ACHIEVEMENTS& achs) {
         if (!isWorkingSchema()) {
-            LogMessage("A working schema has not been set", ISTR_MSG::fail);
+            LogMessage("A working schema has not been set");
             return;
         }
 
@@ -37,15 +37,14 @@ namespace ORDO {
         const std::vector< std::unique_ptr<nlohmann::json>>& schema = achs.Read(ACHIEVEMENT::ach_schema);
 
         if (global.empty() || player.empty() || schema.empty()) {
-            LogMessage("Achievement continers are empty... Nothing to execute", ISTR_MSG::fail);
+            LogMessage("Achievement continers are empty... Nothing to execute");
             return;
         }
 
         if (!(global.size() == player.size() && player.size() == schema.size())) {
-            LogError("DATABASE::InsertAchievements Achievement containers are different sizes. Code error", ISTR_MSG::hard);//should not happen as per how ACHIEVEMENT::Add works, but if it does, it is indeed fucked
+            LogError("DATABASE::InsertAchievements Achievement containers are different sizes. Code error");//should not happen as per how ACHIEVEMENT::Add works, but if it does, it is indeed fucked
             return;
         }
-
 
         try {
             auto achievement_list = IO_JSON_SQL::MergeAchievementData(global, player, schema);
@@ -64,7 +63,7 @@ namespace ORDO {
             IO_JSON_SQL::InsertData(achievement_list, steam_id, TABLE_TYPE::ach_schema, *pstmt);
         }
         catch (const std::exception& e) {
-            LogError(e.what(), ISTR_ERROR::hard);
+            LogError(e.what());
             return;
         }
     }
@@ -82,7 +81,7 @@ namespace ORDO {
 
         const std::string table_name = SETUP_STATEMENTS::DefinedNames(type);
 
-        const bool already_exists = StrContains(*table_list, table_name);
+        const bool already_exists = MSTR::ListContains(*table_list, table_name);
 
         if (!already_exists) {
             std::unique_ptr<sql::Statement> stmt(conn.createStatement());
@@ -90,12 +89,12 @@ namespace ORDO {
         }
     }
     void DATABASE::CreateNewSchema()const {
-        Refresh();
-        printf("\nEnter schema name >>> ");
-        const std::string name = InputString(INPUT_T::chars);
+        TRefresh();
+
+        const std::string name = ISTR::InputStr("\nEnter schema name >>> ");
 
         if (name.empty()) {
-            LogMessage("Unable to create a no-name schema", ISTR_MSG::fail);
+            LogMessage("Unable to create a no-name schema");
             return;
         }
 
@@ -107,20 +106,20 @@ namespace ORDO {
 
             stmt->execute(create_stmt);
 
-            LogMessage("Schema >> " + name + " << created", ISTR_MSG::good);
+            LogMessage("Schema >> " + name + " << created");
         }
         catch (const std::exception& e) {
-            LogError(std::string("Failed to create new schema: ") + e.what(), ISTR_ERROR::fail);
+            LogError(std::string("Failed to create new schema: ") + e.what());
         }
     }
     void DATABASE::AssignWorkingSchema() {
         try {
-            Refresh();
+            TRefresh();
             printf("\nSet working schema::\n=====================================================================================\n");
 
             const auto list = GetSchemaList();
             if (list->empty()) {
-                LogMessage("There are no schemas in your database", ISTR_MSG::fail);
+                LogMessage("There are no schemas in your database");
                 return;
             }
 
@@ -129,22 +128,21 @@ namespace ORDO {
                 printf("\n[%zu] %s", i++, entry.c_str());
             }
 
-            printf("\n\nInput >>> ");
-            const int select = Select(list->size(), INPUT_T::numsNoZero);
+            const int select = ISTR::InputRange(list->size(), "\n\nInput >>> ");
 
             if (AssignSchemaIndexCheck(select, list->size())) {
                 working_schema = (*list)[select - 1];
             }
             else {
-                LogMessage("Invalid or out of range input, no schema is set", ISTR_MSG::fail);
+                LogMessage("Invalid or out of range input, no schema is set");
             }
         }
         catch (const std::exception& e) {
-            LogError(std::string("DATABASE::AssignWorkingSchema failure: ") + e.what(), ISTR_ERROR::fail);
+            LogError(std::string("DATABASE::AssignWorkingSchema failure: ") + e.what());
         }
 
         if (isWorkingSchema()) {
-            LogMessage("Working schema set to " + working_schema, ISTR_MSG::good);
+            LogMessage("Working schema set to " + working_schema);
         }
     }
     std::unique_ptr<std::vector<std::string>> DATABASE::GetSchemaList()const {
@@ -259,7 +257,7 @@ namespace ORDO {
                     ExtractAchivSchema(schema, achievement_entry, index, apiname);
                 }
                 catch (const std::exception& e) {
-                    LogError(std::string("DATABASE::IO_JSON_SQL::MergeAchievementData (Likely JSON parsing) ") + e.what(), ISTR_ERROR::fail);
+                    LogError(std::string("DATABASE::IO_JSON_SQL::MergeAchievementData (Likely JSON parsing) ") + e.what());
                     merged.clear();
                     return merged;
                 }
@@ -282,13 +280,13 @@ namespace ORDO {
 
                 pstmt.setBigInt(1, player_id);
                 pstmt.setString(2, persona_name);
-                pstmt.setDateTime(3, UnixTime(last_logoff));
-                pstmt.setDateTime(4, UnixTime(time_created));
+                pstmt.setDateTime(3, MSTR::UnixTime(last_logoff));
+                pstmt.setDateTime(4, MSTR::UnixTime(time_created));
                 pstmt.setString(5, country_code);
 
                 pstmt.executeUpdate();
 
-                LogMessage("Insertion success where PRIMARY KEY >> " + player_id + " <<:: User >> " + persona_name + " <<", ISTR_MSG::good);
+                LogMessage("Insertion success where PRIMARY KEY >> " + player_id + " <<:: User >> " + persona_name + " <<");
             }
         }
     }
@@ -305,10 +303,10 @@ namespace ORDO {
                 pstmt.setBigInt(2, steam_id);
                 pstmt.setInt(3, game_code);
                 pstmt.setInt(4, playtime);
-                pstmt.setDateTime(5, UnixTime(last_played));
+                pstmt.setDateTime(5, MSTR::UnixTime(last_played));
 
                 pstmt.executeUpdate();
-                LogMessage("Insertion success where PRIMARY KEY >> " + id, ISTR_MSG::good);
+                LogMessage("Insertion success where PRIMARY KEY >> " + id);
             }
         }
     }
@@ -326,11 +324,11 @@ namespace ORDO {
                 pstmt.setString(2, game_name);
                 pstmt.setInt(3, playtime_2weeks);
                 pstmt.setInt(4, playtime_forever);
-                pstmt.setDateTime(5, UnixTime(current_time));
+                pstmt.setDateTime(5, MSTR::UnixTime(current_time));
                 pstmt.setBigInt(6, steam_id);
 
                 pstmt.executeUpdate();
-                LogMessage("Insertion success where user ID >> " + steam_id, ISTR_MSG::good);
+                LogMessage("Insertion success where user ID >> " + steam_id);
             }
         }
     }
@@ -352,10 +350,10 @@ namespace ORDO {
                 pstmt.setString(5, description);
                 pstmt.setDouble(6, percent);
                 pstmt.setBoolean(7, achieved);
-                pstmt.setDateTime(8, UnixTime(unlocktime));
+                pstmt.setDateTime(8, MSTR::UnixTime(unlocktime));
 
                 pstmt.executeUpdate();
-                LogMessage("Insertion success where achievement ID >> " + apiname + " <<\tfor game >> " + gameName + " <<", ISTR_MSG::good);
+                LogMessage("Insertion success where achievement ID >> " + apiname + " <<\tfor game >> " + gameName + " <<");
             }
         }
     }

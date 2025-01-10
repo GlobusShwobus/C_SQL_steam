@@ -9,7 +9,7 @@ namespace ORDO {
         data.clear();
     }
     bool DATA::Add(std::unique_ptr<nlohmann::json> _data) {
-        if (_data == nullptr) { LogError("Recieved nullptr", ISTR_MSG::hard); return false; }
+        if (_data == nullptr) { LogError("Recieved nullptr"); return false; }
         if (_data->empty()) { return false; }
 
         data.push_back(std::move(_data));
@@ -20,10 +20,10 @@ namespace ORDO {
             for (const std::unique_ptr<nlohmann::json>& entry : data) {
                 printf("\n%s", entry->dump().c_str());
             }
-            HSTR::Wait();
+            TWait();
         }
         else {
-            LogMessage("No data to display...", ISTR_MSG::fail);
+            LogMessage("No data to display...");
         }
     }
     const std::vector<std::unique_ptr<nlohmann::json>>& DATA::Read()const {
@@ -36,7 +36,7 @@ namespace ORDO {
 
     bool ACHIEVEMENTS::Add(std::unique_ptr<nlohmann::json> for_global, std::unique_ptr<nlohmann::json> for_player, std::unique_ptr<nlohmann::json> for_schema) {
         if (for_global == nullptr || for_player == nullptr || for_schema == nullptr) {
-            LogError("ACHIEVEMENTS::Add: Recieved nullptr", ISTR_MSG::hard);
+            LogError("ACHIEVEMENTS::Add: Recieved nullptr");
             return false;
         }
         if (for_global->empty() || for_player->empty() || for_schema->empty()) {
@@ -58,7 +58,7 @@ namespace ORDO {
         else if (type == ACHIEVEMENT::ach_player) { player.Display(); }
         else if (type == ACHIEVEMENT::ach_schema) { schema.Display(); }
         else {
-            LogError("ACHIEVEMENTS::Display invalid ENTITY type entered", ISTR_ERROR::fail);
+            LogError("ACHIEVEMENTS::Display invalid ENTITY type entered");
         }
     }
 
@@ -120,7 +120,7 @@ namespace ORDO {
             output << data.dump(4);
         }
         catch (const std::exception& e) {
-            LogError(std::string("OUTPUT_HANDLE:: ") + e.what(), ISTR_ERROR::hard);
+            LogError(std::string("OUTPUT_HANDLE:: ") + e.what());
         }
     }
     OUTPUT_HANDLE::OUTPUT_HANDLE(const std::filesystem::path& path, const std::vector<std::string>& data) {
@@ -131,7 +131,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            LogError(std::string("OUTPUT_HANDLE:: ") + e.what(), ISTR_ERROR::hard);
+            LogError(std::string("OUTPUT_HANDLE:: ") + e.what());
         }
     }
     INPUT_HANDLE::INPUT_HANDLE(const std::filesystem::path& file_path, nlohmann::json& into) {
@@ -140,7 +140,7 @@ namespace ORDO {
             input >> into;
         }
         catch (const std::exception& e) {
-            LogError(std::string("INPUT_HANDLE:: ") + e.what(), ISTR_ERROR::hard);
+            LogError(std::string("INPUT_HANDLE:: ") + e.what());
         }
     }
 
@@ -153,7 +153,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            LogError(std::string("ERROR FILE_MANAGER::GetFolderContents ") + e.what(), ISTR_ERROR::hard);
+            LogError(std::string("ERROR FILE_MANAGER::GetFolderContents ") + e.what());
             file_names.clear();
         }
         return file_names;
@@ -170,25 +170,25 @@ namespace ORDO {
     void FILE_MANAGER::MakeJSON(const std::vector<std::unique_ptr<nlohmann::json>>& data)const {
         try {
             if (data.empty()) {
-                LogMessage("FILE_MANAGER::MakeJSON empty container", ISTR_MSG::fail);
+                LogMessage("FILE_MANAGER::MakeJSON empty container");
                 return;
             }
 
             std::vector<std::string> folder_contents = GetFolderContents();
-            Refresh();
-            printf("\nEnter file name >>> ");
-            std::string new_file_name = InputString(INPUT_T::numchars);
+            TRefresh();
+
+            std::string new_file_name = ISTR::InputStr("\nEnter file name >>> ");
 
             for (const auto& each : data) {
                 AssignNameCopyCheck(folder_contents, new_file_name, "_copy");
                 folder_contents.push_back(new_file_name);
                 const std::filesystem::path new_file_path = some_path / (new_file_name + ".json");
                 OUTPUT_HANDLE handle(new_file_path, *each);
-                LogMessage(std::string("JSON file created for >> ") + new_file_name, ISTR_MSG::good);
+                LogMessage(std::string("JSON file created for >> ") + new_file_name);
             }
         }
         catch (const std::exception& e) {
-            LogError(e.what(), ISTR_ERROR::hard);
+            LogError(e.what());
         }
     }
     void FILE_MANAGER::MakeManyJSON(const std::vector<std::unique_ptr<nlohmann::json>>& list, const std::unique_ptr<std::vector<std::string>>& names)const {
@@ -197,7 +197,7 @@ namespace ORDO {
                 throw std::invalid_argument("FILE_MANAGER::MakeManyJSON number of JSON objects and names do not match");
             }
             if (list.empty()) {
-                LogMessage("FILE_MANAGER::MakeManyJSON empty container", ISTR_MSG::fail);
+                LogMessage("FILE_MANAGER::MakeManyJSON empty container");
                 return;
             }
             const std::vector<std::string> folder_contents = GetFolderContents();
@@ -212,12 +212,12 @@ namespace ORDO {
                 const std::filesystem::path new_file_path = some_path / ((*names)[index] + ".json");
                 OUTPUT_HANDLE handle(new_file_path, *each.get());
 
-                LogMessage(std::string("JSON file created for >> ") + (*names)[index], ISTR_MSG::good);
+                LogMessage(std::string("JSON file created for >> ") + (*names)[index]);
                 index++;
             }
         }
         catch (const std::exception& e) {
-            LogError(e.what(), ISTR_ERROR::hard);
+            LogError(e.what());
         }
     }
 }

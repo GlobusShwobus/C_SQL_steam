@@ -1,8 +1,5 @@
 #pragma once
 
-
-//stdexcept
-
 #include <memory>
 #include <string>
 #include <vector>
@@ -10,7 +7,6 @@
 #include <Windows.h>
 #include <ctime>
 
-//#include <ctime>
 
 #define UK_ZERO 48           //unique key 0
 #define UK_ONE 49            //unique key 1
@@ -41,29 +37,6 @@
 #define SR_EIGHT 8           //select range 8
 #define SR_NINE 9            //select range 9
 
-/*
-separation of concern:
-
-function can not return 0 if premature carrige return is prssed
-function can not return 0 if escape key is pressed
-both above have to be resolved by a middleman
-have functions that take string input, take ranged based number input, take any number input
-
-
-
-logging a message and logging an error must be different
-error has to ONLY be something that blocks any type of progress but can be resolved during runtime
-messages can be any type of failures/successes/or any other feedback but not something which requires fixing code
-errors should be stord permantly and loged into a file to keep track of things in need of fixing
-messages can be ephemeral
-
-
-
-in terms of access: inputs, loging and misc string manipulation should be divided up and type handling should not be user concern
-
-other junk not sure
-*/
-
 
 namespace ORDO { //input string
 
@@ -74,218 +47,66 @@ namespace ORDO { //input string
             nums, chars, numsAndChars, printables
         };
 
-        static bool ASCIICheck(const ASCII_TYPE t, char c) {
-            switch (t) {
-            case ASCII_TYPE::nums:           return (c >= UK_ZERO && c <= UK_NINE);
-            case ASCII_TYPE::chars:          return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || c == UK_UNDERSCORE;
-            case ASCII_TYPE::numsAndChars:   return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || (c >= UK_ZERO && c <= UK_NINE) || c == UK_UNDERSCORE;
-            case ASCII_TYPE::printables:     return (c >= UK_SYMBOL_START && c <= UK_SYMBOL_END);
-            }
-            throw "Invalid argument";
-        }
-        static void CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size) {
-            std::string copy = HSTR::GetClipboard();//get all data in text form from clipboard
-
-            copy.erase(std::remove_if(copy.begin(), copy.end(), [&t](const char c) { //remove every symbol which does not pass the check
-                return !ASCIICheck(t, c);
-                }), copy.end());
-
-
-            mutate += copy;
-
-            if (mutate.size() > max_size) {
-                mutate.resize(max_size);
-            }
-        }
-        static void TerminalPrint(const std::string& str) {
-            for (int i = 0; i < str.size(); ++i) {
-                _putch('\b');
-                _putch(' ');
-                _putch('\b');
-            }
-            for (char each : str) {
-                _putch(each);
-            }
-        }
+        static bool ASCIICheck(const ASCII_TYPE t, char c);
+        static void CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size);
+        static void TerminalPrint(const std::string& str);
     public:
 
-        static std::string InputStr() {
-            static constexpr ASCII_TYPE restriction = ASCII_TYPE::numsAndChars;//shorthand to pass restructions for inputs (may be depricated in the future)
-            static constexpr short max_input_len = 30;
-            std::string str;
-
-            while (str.size() < max_input_len) {
-                const char c = _getch();
-
-                if (c == UK_RETURN && !str.empty()) {
-                    break;
-                }
-                if (ASCIICheck(restriction, c)) {
-                    str += c;
-                }
-                else if (c == UK_BACKSPACE && !str.empty()) {
-                    str.pop_back();
-                }
-                else if (c == UK_COPY) {
-                    CopiedContent(restriction, str, max_input_len);
-                }
-                else if (c == UK_ESCAPE) {
-                    return "";
-                }
-
-                TerminalPrint(str);
-            }
-
-            return str;
-        }
-        int InputNum() {
-            static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
-            static constexpr short max_num_digits = 9;
-            std::string str;
-
-            while (str.size() < max_num_digits) {
-                const char c = _getch();
-
-                if (c == UK_RETURN && !str.empty()) {
-                    break;
-                }
-                if (ASCIICheck(restriction, c)) {
-                    str += c;
-                }
-                else if (c == UK_BACKSPACE && !str.empty()) {
-                    str.pop_back();
-                }
-                else if (c == UK_COPY) {
-                    CopiedContent(restriction, str, max_num_digits);
-                }
-                else if (c == UK_ESCAPE) {
-                    return -1;
-                }
-                TerminalPrint(str);
-            }
-
-            return std::stoi(str);
-        }
-
-        int InputRange(const unsigned int range) {
-            static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
-            std::string str;
-
-
-            while (true) {
-                const char c = _getch();
-
-                if (c == UK_RETURN && !str.empty()) {
-                    break;
-                }
-                if (ASCIICheck(restriction, c)) {
-                    if (str.empty() && c == UK_ZERO) {//first number can't be 0
-                        continue;
-                    }
-                    if (std::stoi(str+=c) > range) {
-                        str.pop_back();
-                    }
-                }
-                else if (c == UK_BACKSPACE && str.size() > 0) {
-                    str.pop_back();
-                }
-                else if (c == UK_ESCAPE) {
-                    return -1;
-                }
-                TerminalPrint(str);
-            }
-
-            return std::stoi(str);
-        }
-
+        static std::string InputStr();
+        static std::string InputStr(const std::string& msg);
+        static int InputNum();
+        static int InputNum(const std::string& msg);
+        static int InputRange(const unsigned int range);
+        static int InputRange(const unsigned int range, const std::string& msg);
     };
 
-    int Select(const unsigned int range, const INPUT_T restriction = INPUT_T::nums);
+    void LogError(const std::string& error);
+    void LogMessage(const std::string& message);
 
-    namespace HSTR { //helper/junk string ops
-        bool ContainsExit(const std::string& str);
+    class ERROR_LOG final {
+
+        friend void LogError(const std::string& str);
+
+        static std::vector<std::string>* GetInstance();
+        static void Add(const std::string& what);
+        static void Add(const char* what);
+    public:
+        static const std::vector<std::string>& Get();
+    private:
+        ERROR_LOG() = delete;
+        ERROR_LOG(const ERROR_LOG&) = delete;
+        ERROR_LOG& operator=(const ERROR_LOG&) = delete;
+    };
+
+    class MESSAGE_LOG {
+
+        friend void LogError(const std::string& str);
+        friend void LogMessage(const std::string& str);
+
+        static std::vector<std::string>* GetInstance();
+        static void Add(const std::string& what);
+        static void Add(const char* what);
+    public:
+        static void Flush();
+    private:
+        MESSAGE_LOG() = delete;
+        MESSAGE_LOG(const MESSAGE_LOG&) = delete;
+        MESSAGE_LOG& operator=(const MESSAGE_LOG&) = delete;
+    };
+
+    //manip strings
+    namespace MSTR {
         void RemoveSymbols(std::string& from, const std::string& symbols);
         void RemoveSymbols(std::string& from, const char symbol);
-
-        void HandleSelectRange(const unsigned int range, std::string& number);
-        void Wait();
-
+        void PrintList(const std::vector<std::pair<std::string, std::string>>& list);
+        bool ListContains(const std::vector<std::string>& cont, const std::string& compared_to);
+        const std::string UnixTime(time_t unix_timestamp);
         std::string GetClipboard();
-
-        enum class MESSAGE_TYPE_INFO {
-            good, fail, hard, other
-        };
-
-        const char* MessageColor(const MESSAGE_TYPE_INFO info);
     }
 
-    typedef HSTR::MESSAGE_TYPE_INFO ISTR_ERROR;
-    typedef HSTR::MESSAGE_TYPE_INFO ISTR_MSG;
-
-    void LogError(const std::string& error, const ISTR_ERROR info);
-    void LogError(const char* error, const ISTR_ERROR info);
-
-    void LogMessage(const std::string& message, const ISTR_MSG info);
-    void LogMessage(const char* message, const ISTR_MSG info);
-
-    void PrintList(const std::vector<std::pair<std::string, std::string>>& list);
-
-    namespace LOGSTR { // message/error log
-
-        class ERROR_LOG final {
-            static std::vector<std::string>* GetInstance() {
-                static std::unique_ptr<std::vector<std::string>> error_log = std::make_unique<std::vector<std::string>>();
-                return error_log.get();
-            }
-        public:
-            static void Add(const std::string& what) {
-                GetInstance()->push_back(what);
-            }
-            static void Add(const char* what) {
-                GetInstance()->push_back(what);
-            }
-            static const std::vector<std::string>& Get() {
-                return *GetInstance();
-            }
-        private:
-            ERROR_LOG() = delete;
-            ERROR_LOG(const ERROR_LOG&) = delete;
-            ERROR_LOG& operator=(const ERROR_LOG&) = delete;
-        };
-
-        class MESSAGE_LOG {
-            static std::vector<std::string>* GetInstance() {
-                static std::unique_ptr<std::vector<std::string>> message_log = std::make_unique<std::vector<std::string>>();
-                return message_log.get();
-            }
-        public:
-            static void Add(const std::string& what) {
-                GetInstance()->push_back(what);
-            }
-            static void Add(const char* what) {
-                GetInstance()->push_back(what);
-            }
-            static void Flush() {
-                for (const auto& each : *GetInstance()) {
-                    printf("\n%s", each.c_str());
-                }
-                GetInstance()->clear();
-            }
-
-
-        private:
-            MESSAGE_LOG() = delete;
-            MESSAGE_LOG(const MESSAGE_LOG&) = delete;
-            MESSAGE_LOG& operator=(const MESSAGE_LOG&) = delete;
-        };
-    }
-
-    bool StrContains(const std::vector<std::string>& cont, const std::string& compared_to);
-    const std::string UnixTime(time_t unix_timestamp);
-    std::string EnterString(const INPUT_T type, const std::string& msg);
-    int SelectOption(const unsigned int range, const std::string& msg);
-
-    void Refresh();
-    void PrintTitle();
-    void ClearTerminal();
+    //terminal shit
+    void TWait();
+    void TRefresh();
+    void TPrintTitle();
+    void TClearTerminal();
 }

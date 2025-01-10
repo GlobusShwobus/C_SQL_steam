@@ -15,7 +15,7 @@ namespace ORDO {
             const nlohmann::json lookfor = nlohmann::json::parse(recipient.memory); //convert char* to json to parse it
 
             if (lookfor.contains("response") && lookfor["response"].contains("players") && !lookfor["response"]["players"].empty()) {
-                LogMessage("Steam User identity established", ISTR_MSG::good);
+                LogMessage("Steam User identity established");
             }
             else {
                 throw std::invalid_argument("Error:: HTTP code 200. Likely API good; user id bad/private");
@@ -53,14 +53,14 @@ namespace ORDO {
             auto type = static_cast<PLAYER>(data.type);//DATA stores the general version of ENTITY which is dangerous, thus the cast to PLAYER version to satisfy the requirement of Request
 
             if (data.Add(std::move(LIBCURL_API_CALL::Request(type, api_key, user_id)))) {//attempts to add the json, if it fails unique_ptr will deal with it
-                LogMessage(std::string("Data recieved for >>> ") + TypeToStr(data.type), ISTR_MSG::good);
+                LogMessage(std::string("Data recieved for >>> ") + TypeToStr(data.type));
             }
             else {
-                LogMessage(std::string("\nData Insertion skiped due to empty data >>> ") + TypeToStr(data.type), ISTR_MSG::fail);
+                LogMessage(std::string("\nData Insertion skiped due to empty data >>> ") + TypeToStr(data.type));
             }
         }
         catch (const std::exception& e) {
-            LogError(std::string("RequestPlayerRelated Error: ") + e.what(), ISTR_ERROR::hard);
+            LogError(std::string("RequestPlayerRelated Error: ") + e.what());
         }
     }
     void STEAM::RequestAchievements(ACHIEVEMENTS& data)const {
@@ -68,10 +68,10 @@ namespace ORDO {
             auto owned_games_list = GetOwnedAppIDs();
 
             SetupAchievementData(*owned_games_list, data);
-            HSTR::Wait();
+            TWait();
         }
         catch (std::exception& e) {
-            LogError(e.what(), ISTR_ERROR::hard);
+            LogError(e.what());
         }
     }
     void STEAM::ReqeustAchievementsByChoice(ACHIEVEMENTS& data)const {
@@ -85,14 +85,12 @@ namespace ORDO {
 
             while (true) {
 
-                PrintList(*owned_games_list);
+                MSTR::PrintList(*owned_games_list);
                 printf("\n\nCurrent Wishlsit::\n=====================================================================================\n");
-                PrintList(*wishlist);
+                MSTR::PrintList(*wishlist);
                 printf(err_msg.c_str());
-                printf("\n\nInput >>> ");
 
-
-                const int input_index = Select(owned_games_list->size());
+                const int input_index = ISTR::InputRange(owned_games_list->size(), "\n\nInput >>> ");
 
                 if (input_index == 0) {//input functions are pepega currently. when enter (return key) is pressed it has to return a value if no value was entered, thus 0
                     break;
@@ -106,10 +104,10 @@ namespace ORDO {
                 }
             }
             SetupAchievementData(*wishlist, data);
-            HSTR::Wait();
+            TWait();
         }
         catch (const std::exception& e) {
-            LogError(std::string("RequestSelectionList Error:: ") + e.what(), ISTR_ERROR::fail);
+            LogError(std::string("RequestSelectionList Error:: ") + e.what());
         }
     }
 
@@ -242,7 +240,7 @@ namespace ORDO {
         char* ptr = (char*)realloc(mem->memory, mem->size + real_size + 1);
 
         if (!ptr) {
-            LogMessage("LIBCURL::MemCallBack: Not enough memory (realloc returned NULL)", ISTR_MSG::other);
+            LogMessage("LIBCURL::MemCallBack: Not enough memory (realloc returned NULL)");
             return 0;
         }
 

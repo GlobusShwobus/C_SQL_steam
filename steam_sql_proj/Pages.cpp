@@ -8,8 +8,8 @@ namespace ORDO {
         const std::string header = std::string(STEAM_PAGE_MAIN) + std::string(STEAM_PAGE_MAIN_SELECTS);
         bool end_page = false;
         while (!end_page) {
-            Refresh();
-            const int select = SelectOption(SR_FIVE, header);
+            TRefresh();
+            const int select = ISTR::InputRange(SR_FIVE, header);
 
             switch (select) {
             case SR_ONE:        SteamPlayerPage(handle, main_data.PlayerSummary());     break;
@@ -24,8 +24,8 @@ namespace ORDO {
 
         const std::string header = std::string(STEAM_PLAYER_PAGE) + std::string(STEAM_PLAYER_PAGE_SELECTS);
 
-        Refresh();
-        const int select = SelectOption(SR_FIVE, header);
+        TRefresh();
+        const int select = ISTR::InputRange(SR_FIVE, header);
 
         switch (select) {
         case SR_ONE:
@@ -37,7 +37,7 @@ namespace ORDO {
             break;
         case SR_THREE:
             data.Clear();
-            LogMessage("Container cleared", ISTR_MSG::good);
+            LogMessage("Container cleared");
             break;
         case SR_FOUR:
         {
@@ -53,14 +53,14 @@ namespace ORDO {
 
         const std::string header = std::string(STEAM_ACHIEVEMENT_PAGE) + std::string(STEAM_ACHIEVEMENT_PAGE_SELECTS);
 
-        Refresh();
-        const int select = SelectOption(SR_SIX, header);
+        TRefresh();
+        const int select = ISTR::InputRange(SR_SIX, header);
 
         switch (select) {
         case SR_ONE:      handle.RequestAchievements(achievement_data);                              break;
         case SR_TWO:      handle.ReqeustAchievementsByChoice(achievement_data);                      break;
         case SR_THREE:    DisplayAchievementsPage(achievement_data);                                 break;
-        case SR_FOUR:     achievement_data.Clear(); LogMessage("Container cleared", ISTR_MSG::good); break;
+        case SR_FOUR:     achievement_data.Clear(); LogMessage("Container cleared");                 break;
         case SR_FIVE:     SaveAchievementsPage(achievement_data);                                    break;
         case SR_SIX:      break;
         }
@@ -71,8 +71,8 @@ namespace ORDO {
         const std::string header = std::string(SQL_PAGE_MAIN) + std::string(SQL_PAGE_MAIN_SELECTS);
         bool end_page = false;
         while (!end_page) {
-            Refresh();
-            int select = SelectOption(SR_FOUR, header);
+            TRefresh();
+            int select = ISTR::InputRange(SR_FOUR, header);
 
             switch (select) {
             case SR_ONE:       database.AssignWorkingSchema();          break;
@@ -85,8 +85,8 @@ namespace ORDO {
     void SQLInjectionsPage(DATABASE& database, MDATA& main_data) {
 
         const std::string header = std::string(SQL_INJECTIONS_PAGE) + std::string(SQL_INJECTIONS_PAGE_SELECTS);
-        Refresh();
-        const int select = SelectOption(SR_FIVE, header);
+        TRefresh();
+        const int select = ISTR::InputRange(SR_FIVE, header);
 
         switch (select) {
         case SR_ONE:     database.InsertPlayer(main_data.PlayerSummary());      break;
@@ -100,9 +100,9 @@ namespace ORDO {
 
     void DisplayAchievementsPage(const ACHIEVEMENTS& achievement_data) {
         //add ability to pick from a list which to see
-        Refresh();
+        TRefresh();
 
-        const int select = SelectOption(SR_FOUR, PAGE_REQUEST_ACHIEVEMENT_DISPLAY);
+        const int select = ISTR::InputRange(SR_FOUR, PAGE_REQUEST_ACHIEVEMENT_DISPLAY);
 
         switch (select) {
         case SR_ONE:     achievement_data.Display(ACHIEVEMENT::ach_global);   break;
@@ -112,8 +112,8 @@ namespace ORDO {
         }
     }
     void SaveAchievementsPage(const ACHIEVEMENTS& achievement_data) {
-        Refresh();
-        const int select = SelectOption(SR_FOUR, PAGE_REQUEST_ACHIEVEMENT_SAVEFILE);
+        TRefresh();
+        const int select = ISTR::InputRange(SR_FOUR, PAGE_REQUEST_ACHIEVEMENT_SAVEFILE);
         FILE_MANAGER fman(DATA_FOLDER);
         switch (select) {
         case SR_ONE:   fman.MakeManyJSON(achievement_data.Read(ACHIEVEMENT::ach_global), achievement_data.GetStoredNames());  break;
@@ -125,42 +125,35 @@ namespace ORDO {
 
     std::unique_ptr<STEAM> SteamLogIn() {
         while (true) {
-            Refresh();
+            TRefresh();
             printf("\nVerify connection to steam web API or esc to exit\n=====================================================================================\n");
 
-            const std::string steam_api_key = EnterString(INPUT_T::numchars, "Enter Steam API key >>> ");
-            const std::string steam_user_id = EnterString(INPUT_T::numchars, "Enter Steam user id >>> ");
-
-            if (ORDO::HSTR::ContainsExit(steam_api_key + steam_user_id)) {
-                return nullptr;
-            }
+            const std::string steam_api_key = ISTR::InputStr("Enter Steam API key >>> ");
+            const std::string steam_user_id = ISTR::InputStr("Enter Steam user id >>> ");
 
             try {
                 return std::make_unique<STEAM>(steam_api_key, steam_user_id);
             }
             catch (const std::exception& e) {
-                LogError(e.what(), ISTR_ERROR::fail);
+                LogError(e.what());
             }
         }
         return nullptr;
     }
     std::unique_ptr<DATABASE> SQLLogIn(const STEAM& handle) {
         while (true) {
-            Refresh();
+            TRefresh();
             printf("\nVerify connection to SQL local server or esc to exit\n=====================================================================================\n");
 
-            const std::string _server_name = EnterString(INPUT_T::numchars, "Enter Server name >>> ");
-            const std::string _server_password = EnterString(INPUT_T::numchars, "Enter password >>> ");
+            const std::string _server_name = ISTR::InputStr("Enter Server name >>> ");
+            const std::string _server_password = ISTR::InputStr("Enter password >>> ");
 
-            if (ORDO::HSTR::ContainsExit(_server_name + _server_password)) {
-                return nullptr;
-            }
 
             try {
                 return std::make_unique<DATABASE>(_server_name, _server_password, handle.CurrentSteamWorkingID());
             }
             catch (const std::exception& e) {
-                LogError(e.what(), ISTR_ERROR::fail);
+                LogError(e.what());
             }
         }
         return nullptr;

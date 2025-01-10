@@ -2,87 +2,225 @@
 
 namespace ORDO {
 
-    int Select(const unsigned int range, const INPUT_T restriction) {
-        std::string number;
 
-        for (char c = NULL; c != UK_RETURN; c = _getch()) {
-            if (HSTR::ValidInput(restriction, c)) {
-                _putch(c);
-                number += c;
-                HSTR::HandleSelectRange(range, number);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       //  input string stuff
+
+    bool ISTR::ASCIICheck(const ASCII_TYPE t, char c) {
+        switch (t) {
+        case ASCII_TYPE::nums:           return (c >= UK_ZERO && c <= UK_NINE);
+        case ASCII_TYPE::chars:          return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || c == UK_UNDERSCORE;
+        case ASCII_TYPE::numsAndChars:   return (c >= UK_LOWER_A && c <= UK_LOWER_Z) || (c >= UK_CAPITAL_A && c <= UK_CAPITAL_Z) || (c >= UK_ZERO && c <= UK_NINE) || c == UK_UNDERSCORE;
+        case ASCII_TYPE::printables:     return (c >= UK_SYMBOL_START && c <= UK_SYMBOL_END);
+        }
+        throw "Invalid argument";
+    }
+    void ISTR::CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size) {
+        std::string copy = MSTR::GetClipboard();//get all data in text form from clipboard
+
+        copy.erase(std::remove_if(copy.begin(), copy.end(), [&t](const char c) { //remove every symbol which does not pass the check
+            return !ASCIICheck(t, c);
+            }), copy.end());
+
+
+        mutate += copy;
+
+        if (mutate.size() > max_size) {
+            mutate.resize(max_size);
+        }
+    }
+    void ISTR::TerminalPrint(const std::string& str) {
+        for (int i = 0; i < str.size(); ++i) {
+            _putch('\b');
+            _putch(' ');
+            _putch('\b');
+        }
+        for (char each : str) {
+            _putch(each);
+        }
+    }
+    std::string ISTR::InputStr() {
+        static constexpr ASCII_TYPE restriction = ASCII_TYPE::numsAndChars;//shorthand to pass restructions for inputs (may be depricated in the future)
+        static constexpr short max_input_len = 30;
+        std::string str;
+
+        while (str.size() < max_input_len) {
+            const char c = _getch();
+
+            if (c == UK_RETURN && !str.empty()) {
+                break;
             }
-            else if (c == UK_BACKSPACE && number.size() > 0) {
-                _putch('\b');
-                _putch(' ');
-                _putch('\b');
-                number.pop_back();
+            if (ASCIICheck(restriction, c)) {
+                str += c;
+            }
+            else if (c == UK_BACKSPACE && !str.empty()) {
+                str.pop_back();
             }
             else if (c == UK_COPY) {
-                number += HSTR::HandleCopiedData(restriction);
-                HSTR::HandleSelectRange(range, number);
+                CopiedContent(restriction, str, max_input_len);
             }
             else if (c == UK_ESCAPE) {
-                return 0;
+                return "";
             }
+
+            TerminalPrint(str);
         }
 
-        if (number.empty()) {
-            return 0;
+        return str;
+    }
+    int ISTR::InputNum() {
+        static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
+        static constexpr short max_num_digits = 9;
+        std::string str;
+
+        while (str.size() < max_num_digits) {
+            const char c = _getch();
+
+            if (c == UK_RETURN && !str.empty()) {
+                break;
+            }
+            if (ASCIICheck(restriction, c)) {
+                str += c;
+            }
+            else if (c == UK_BACKSPACE && !str.empty()) {
+                str.pop_back();
+            }
+            else if (c == UK_COPY) {
+                CopiedContent(restriction, str, max_num_digits);
+            }
+            else if (c == UK_ESCAPE) {
+                return -1;
+            }
+            TerminalPrint(str);
         }
 
-        return std::stoi(number);
+        return std::stoi(str);
     }
 
-    bool HSTR::ContainsExit(const std::string& str) {
-        return str.find(UK_ESCAPE) != std::string::npos;
+    int ISTR::InputRange(const unsigned int range) {
+        static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
+        std::string str;
+
+
+        while (true) {
+            const char c = _getch();
+
+            if (c == UK_RETURN && !str.empty()) {
+                break;
+            }
+            if (ASCIICheck(restriction, c)) {
+                if (str.empty() && c == UK_ZERO) {//first number can't be 0
+                    continue;
+                }
+                if (std::stoi(str += c) > range) {
+                    str.pop_back();
+                }
+            }
+            else if (c == UK_BACKSPACE && str.size() > 0) {
+                str.pop_back();
+            }
+            else if (c == UK_ESCAPE) {
+                return -1;
+            }
+            TerminalPrint(str);
+        }
+
+        return std::stoi(str);
+    }
+    std::string ISTR::InputStr(const std::string& msg) {
+        printf("\n%s", msg.c_str());
+        return InputStr();
+    }
+    int ISTR::InputNum(const std::string& msg) {
+        printf("\n%s", msg.c_str());
+        return InputNum();
+    }
+    int ISTR::InputRange(const unsigned int range, const std::string& msg) {
+        printf("\n%s", msg.c_str());
+        return InputRange(range);
     }
 
-    void HSTR::RemoveSymbols(std::string& from, const std::string& symbols) {
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //   logging stuff
+
+    void LogError(const std::string& error) {
+        ERROR_LOG::Add(error);
+        MESSAGE_LOG::Add(error);
+    }
+    void LogMessage(const std::string& message) {
+        MESSAGE_LOG::Add(message);
+    }
+    std::vector<std::string>* ERROR_LOG::GetInstance() {
+        static std::unique_ptr<std::vector<std::string>> error_log = std::make_unique<std::vector<std::string>>();
+        return error_log.get();
+    }
+    void ERROR_LOG::Add(const std::string& what) {
+        GetInstance()->push_back(what);
+    }
+    void ERROR_LOG::Add(const char* what) {
+        GetInstance()->push_back(what);
+    }
+    const std::vector<std::string>& ERROR_LOG::Get() {
+        return *GetInstance();
+    }
+    std::vector<std::string>* MESSAGE_LOG::GetInstance() {
+        static std::unique_ptr<std::vector<std::string>> message_log = std::make_unique<std::vector<std::string>>();
+        return message_log.get();
+    }
+    void MESSAGE_LOG::Add(const std::string& what) {
+        GetInstance()->push_back(what);
+    }
+    void MESSAGE_LOG::Add(const char* what) {
+        GetInstance()->push_back(what);
+    }
+    void MESSAGE_LOG::Flush() {
+        for (const auto& each : *GetInstance()) {
+            printf("\n%s", each.c_str());
+        }
+        GetInstance()->clear();
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //   string manipulation stuff
+
+    void MSTR::RemoveSymbols(std::string& from, const std::string& symbols) {
         from.erase(std::remove_if(from.begin(), from.end(), [&symbols](const char c) {
             return symbols.find(c) != std::string::npos;
             }), from.end());
     }
-    void HSTR::RemoveSymbols(std::string& from, const char symbol) {
+    void MSTR::RemoveSymbols(std::string& from, const char symbol) {
         from.erase(std::remove_if(from.begin(), from.end(), [symbol](const char c) {
             return symbol == c;
             }), from.end());
     }
+    void MSTR::PrintList(const std::vector<std::pair<std::string, std::string>>& list) {
+        size_t i = 1;
 
-    void HSTR::HandleSelectRange(const unsigned int range, std::string& number) {
-        try {
-            int val = std::stoi(number);
-            if (val > range) {
-                for (char c : number) {
-                    _putch('\b');
-                    _putch(' ');
-                    _putch('\b');
-                }
-                number = std::to_string(range);
-
-                for (char c : number) {
-                    _putch(c);
-                }
-            }
-        }
-        catch (const std::exception& e) {
-            for (char c : number) {
-                _putch('\b');
-                _putch(' ');
-                _putch('\b');
-            }
-            number = std::to_string(range);
-
-            for (char c : number) {
-                _putch(c);
-            }
+        for (const auto& each : list) {
+            printf("\n[%zu] %s", i++, each.second.c_str());
         }
     }
-
-    void HSTR::Wait() {
-        printf("\nPress a key...");
-        char empty_input = _getch();
+    bool MSTR::ListContains(const std::vector<std::string>& cont, const std::string& compared_to) {
+        return std::find(cont.begin(), cont.end(), compared_to) != cont.end();
     }
-    std::string HSTR::GetClipboard() {
+    const std::string MSTR::UnixTime(time_t unix_timestamp) {
+
+        char time_buf[80];
+        struct tm ts;
+        localtime_s(&ts, &unix_timestamp);
+        strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", &ts);
+
+        return std::string(time_buf);
+    }
+    std::string MSTR::GetClipboard() {
         if (!OpenClipboard(nullptr)) {
             return "";
         }
@@ -104,69 +242,24 @@ namespace ORDO {
 
         return text;
     }
-    const char* HSTR::MessageColor(const MESSAGE_TYPE_INFO info) {
-        switch (info) {
-        case MESSAGE_TYPE_INFO::good:  return "\033[32m";
-        case MESSAGE_TYPE_INFO::fail:  return "\033[33m";
-        case MESSAGE_TYPE_INFO::hard:  return "\033[31m";
-        case MESSAGE_TYPE_INFO::other: return "\033[34m";
-        }
-        return "\033[97m";
-    }
-    void LogError(const std::string& error, const ISTR_ERROR info) {
-        LOGSTR::ERROR_LOG::Add(error);
-        LOGSTR::MESSAGE_LOG::Add(error);
-    }
-    void LogError(const char* error, const ISTR_ERROR info) {
-        LOGSTR::ERROR_LOG::Add(error);
-        LOGSTR::MESSAGE_LOG::Add(error);
-    }
-    void LogMessage(const std::string& message, const ISTR_MSG info) {
-        LOGSTR::MESSAGE_LOG::Add(message);
-    }
-    void LogMessage(const char* message, const ISTR_MSG info) {
-        LOGSTR::MESSAGE_LOG::Add(message);
-    }
-
-    void PrintList(const std::vector<std::pair<std::string, std::string>>& list) {
-        size_t i = 1;
-
-        for (const auto& each : list) {
-            printf("\n[%zu] %s", i++, each.second.c_str());
-        }
-    }
-    bool StrContains(const std::vector<std::string>& cont, const std::string& compared_to) {
-        return std::find(cont.begin(), cont.end(), compared_to) != cont.end();
-    }
-    const std::string UnixTime(time_t unix_timestamp) {
-
-        char time_buf[80];
-        struct tm ts;
-        localtime_s(&ts, &unix_timestamp);
-        strftime(time_buf, sizeof(time_buf), "%Y-%m-%d %H:%M:%S", &ts);
-
-        return std::string(time_buf);
-    }
-    std::string EnterString(const INPUT_T type, const std::string& msg) {
-        printf("\n%s", msg.c_str());
-        std::string input = InputString(type);
-        return input;
-    }
-    int SelectOption(const unsigned int range, const std::string& msg) {
-        printf("\n%s", msg.c_str());
-        int input = Select(range, INPUT_T::numsNoZero);
-
-        return input;
-    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //   terminal related
 
 
-    void Refresh() {
-        ClearTerminal();
-        PrintTitle();
-        LOGSTR::MESSAGE_LOG::Flush();
+    void TWait() {
+        printf("\nPress a key...");
+        char empty_input = _getch();
+    }
+    void TRefresh() {
+        TClearTerminal();
+        TPrintTitle();
+        MESSAGE_LOG::Flush();
     }
 
-    void PrintTitle() {
+    void TPrintTitle() {
         printf("\n%s", R"( @@@@@@   @@@@@@@   @@@@@@@    @@@@@@   
 @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  
 @@!  @@@  @@!  @@@  @@!  @@@  @@!  @@@  
@@ -180,7 +273,7 @@ namespace ORDO {
 
         printf("%s", "\n\n=====================================================================================");
     }
-    void ClearTerminal() {
+    void TClearTerminal() {
         system("cls");
     }
 }

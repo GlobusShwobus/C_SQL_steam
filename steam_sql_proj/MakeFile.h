@@ -68,12 +68,12 @@ namespace ORDO {
 	public:
 		FILE_MANAGER(const std::string& path) :some_path(path) {
 			if (std::filesystem::create_directories(some_path)) {
-				LogMessage("Folder missing. Created new at >> " + some_path.string(), ISTR_MSG::good);
+				LogMessage("Folder missing. Created new at >> " + some_path.string());
 			}
 		}
 		FILE_MANAGER(const char* path) :some_path(path) {
 			if (std::filesystem::create_directories(some_path)) {
-				LogMessage("Folder missing. Created new at >> " + some_path.string(), ISTR_MSG::good);
+				LogMessage("Folder missing. Created new at >> " + some_path.string());
 			}
 		}
 
