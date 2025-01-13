@@ -1,8 +1,5 @@
 #pragma once
 
-
-//stdexcept
-
 #include <memory>
 #include <string>
 #include <vector>
@@ -10,7 +7,6 @@
 #include <Windows.h>
 #include <ctime>
 
-//#include <ctime>
 
 #define UK_ZERO 48           //unique key 0
 #define UK_ONE 49            //unique key 1
@@ -44,100 +40,75 @@
 
 namespace ORDO { //input string
 
-    enum class INPUT_T {
-        nums, numsNoZero, chars, numchars, printables
+    //input string
+    class ISTR {
+
+        enum class ASCII_TYPE {
+            nums, chars, numsAndChars, printables
+        };
+
+        static bool ASCIICheck(const ASCII_TYPE t, char c);
+        static void CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size);
+        static bool IfGoodKeyStr(std::string& mutate, const char c, const short max_len, const ASCII_TYPE restriction);
+        static void IfGoodRange(std::string& mutate, const char c, const short max_range, const ASCII_TYPE resrestriction);
+        static void BackSpace(std::string& mutate);
+    public:
+
+        static std::string InputStr();
+        static std::string InputStr(const std::string& msg);
+        static int InputNum();
+        static int InputNum(const std::string& msg);
+        static int InputRange(const unsigned int range);
+        static int InputRange(const unsigned int range, const std::string& msg);
     };
 
-    std::string InputString(const INPUT_T restriction);
-    int Select(const unsigned int range, const INPUT_T restriction = INPUT_T::nums);
+    void LogError(const std::string& error);
+    void LogMessage(const std::string& message);
 
-    namespace HSTR { //helper/junk string ops
-        bool ValidInput(const INPUT_T restriction, char c);
-        bool ContainsExit(const std::string& str);
-        void RemoveSymbols(std::string& from, const INPUT_T restriction);
+    class ERROR_LOG final {
+
+        friend void LogError(const std::string& str);
+
+        static std::vector<std::string>* GetInstance();
+        static void Add(const std::string& what);
+        static void Add(const char* what);
+    public:
+        static const std::vector<std::string>& Get();
+    private:
+        ERROR_LOG() = delete;
+        ERROR_LOG(const ERROR_LOG&) = delete;
+        ERROR_LOG& operator=(const ERROR_LOG&) = delete;
+    };
+
+    class MESSAGE_LOG {
+
+        friend void LogError(const std::string& str);
+        friend void LogMessage(const std::string& str);
+
+        static std::vector<std::string>* GetInstance();
+        static void Add(const std::string& what);
+        static void Add(const char* what);
+    public:
+        static void Flush();
+    private:
+        MESSAGE_LOG() = delete;
+        MESSAGE_LOG(const MESSAGE_LOG&) = delete;
+        MESSAGE_LOG& operator=(const MESSAGE_LOG&) = delete;
+    };
+
+    //manip strings
+    namespace MSTR {
         void RemoveSymbols(std::string& from, const std::string& symbols);
         void RemoveSymbols(std::string& from, const char symbol);
-
-        std::string HandleCopiedData(const INPUT_T restriction);
-        void HandleSelectRange(const unsigned int range, std::string& number);
-        void Wait();
-
+        void PrintList(const std::vector<std::pair<std::string, std::string>>& list);
+        bool ListContains(const std::vector<std::string>& cont, const std::string& compared_to);
+        const std::string UnixTime(time_t unix_timestamp);
         std::string GetClipboard();
-
-        enum class MESSAGE_TYPE_INFO {
-            good, fail, hard, other
-        };
-
-        const char* MessageColor(const MESSAGE_TYPE_INFO info);
     }
 
-    typedef HSTR::MESSAGE_TYPE_INFO ISTR_ERROR;
-    typedef HSTR::MESSAGE_TYPE_INFO ISTR_MSG;
-
-    void LogError(const std::string& error, const ISTR_ERROR info);
-    void LogError(const char* error, const ISTR_ERROR info);
-
-    void LogMessage(const std::string& message, const ISTR_MSG info);
-    void LogMessage(const char* message, const ISTR_MSG info);
-
-    void PrintList(const std::vector<std::pair<std::string, std::string>>& list);
-
-    namespace LOGSTR { // message/error log
-
-        class ERROR_LOG final {
-            static std::vector<std::string>* GetInstance() {
-                static std::unique_ptr<std::vector<std::string>> error_log = std::make_unique<std::vector<std::string>>();
-                return error_log.get();
-            }
-        public:
-            static void Add(const std::string& what) {
-                GetInstance()->push_back(what);
-            }
-            static void Add(const char* what) {
-                GetInstance()->push_back(what);
-            }
-            static const std::vector<std::string>& Get() {
-                return *GetInstance();
-            }
-        private:
-            ERROR_LOG() = delete;
-            ERROR_LOG(const ERROR_LOG&) = delete;
-            ERROR_LOG& operator=(const ERROR_LOG&) = delete;
-        };
-
-        class MESSAGE_LOG {
-            static std::vector<std::string>* GetInstance() {
-                static std::unique_ptr<std::vector<std::string>> message_log = std::make_unique<std::vector<std::string>>();
-                return message_log.get();
-            }
-        public:
-            static void Add(const std::string& what) {
-                GetInstance()->push_back(what);
-            }
-            static void Add(const char* what) {
-                GetInstance()->push_back(what);
-            }
-            static void Flush() {
-                for (const auto& each : *GetInstance()) {
-                    printf("\n%s", each.c_str());
-                }
-                GetInstance()->clear();
-            }
-
-
-        private:
-            MESSAGE_LOG() = delete;
-            MESSAGE_LOG(const MESSAGE_LOG&) = delete;
-            MESSAGE_LOG& operator=(const MESSAGE_LOG&) = delete;
-        };
-    }
-
-    bool StrContains(const std::vector<std::string>& cont, const std::string& compared_to);
-    const std::string UnixTime(time_t unix_timestamp);
-    std::string EnterString(const INPUT_T type, const std::string& msg);
-    int SelectOption(const unsigned int range, const std::string& msg);
-
-    void Refresh();
-    void PrintTitle();
-    void ClearTerminal();
+    //terminal shit
+    void TWait();
+    void TRefresh();
+    void TPrintTitle();
+    void TClearTerminal();
 }

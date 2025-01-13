@@ -21,9 +21,9 @@ int main() {
     bool end_session = false;
 
     while (!end_session) {
-        Refresh();
+        TRefresh();
 
-        const int select = SelectOption(SR_THREE, MAIN_PAGE);
+        const int select = ISTR::InputRange(SR_THREE, MAIN_PAGE);
 
         switch (select) {
         case SR_ONE:

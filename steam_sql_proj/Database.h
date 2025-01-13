@@ -63,7 +63,7 @@ namespace ORDO {
             std::unique_ptr<sql::Connection> connect(driver->connect(ip, server_name, server_password));
 
             if (connect->isValid()) {
-                LogMessage("Connection to local SQL server established", ISTR_MSG::good);
+                LogMessage("Connection to local SQL server established");
             }
         }
 
