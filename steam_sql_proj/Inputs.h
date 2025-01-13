@@ -49,7 +49,9 @@ namespace ORDO { //input string
 
         static bool ASCIICheck(const ASCII_TYPE t, char c);
         static void CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size);
-        static void TerminalPrint(const std::string& str);
+        static bool IfGoodKeyStr(std::string& mutate, const char c, const short max_len, const ASCII_TYPE restriction);
+        static void IfGoodRange(std::string& mutate, const char c, const short max_range, const ASCII_TYPE resrestriction);
+        static void BackSpace(std::string& mutate);
     public:
 
         static std::string InputStr();

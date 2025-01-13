@@ -26,38 +26,68 @@ namespace ORDO {
             }), copy.end());
 
 
-        mutate += copy;
+        for (char c : copy) {
+            if (mutate.size() >= max_size) {
+                break;
+            }
 
-        if (mutate.size() > max_size) {
-            mutate.resize(max_size);
+            mutate += c;
+            _putch(c);
         }
     }
-    void ISTR::TerminalPrint(const std::string& str) {
-        for (int i = 0; i < str.size(); ++i) {
-            _putch('\b');
-            _putch(' ');
-            _putch('\b');
+    bool ISTR::IfGoodKeyStr(std::string& mutate, const char c, const short max_len, const ASCII_TYPE restriction) {
+        if (ASCIICheck(restriction, c) && mutate.size() < max_len) {
+            mutate += c;
+            _putch(c);
+            return true;
         }
-        for (char each : str) {
-            _putch(each);
+        return false;
+    }
+    void ISTR::IfGoodRange(std::string& mutate , const char c, const short max_range, const ASCII_TYPE restriction) {
+        if (ASCIICheck(restriction, c) && !(mutate.empty() && c == UK_ZERO)) {
+            
+            mutate += c;
+            _putch(c);
+
+            if (std::stoi(mutate) > max_range) {
+
+                for (const char each : mutate) {
+                    _putch('\b');
+                    _putch(' ');
+                    _putch('\b');
+                }
+
+
+                mutate = std::to_string(max_range);
+
+                for (const char each : mutate) {
+                    _putch(each);
+                }
+
+            }
         }
+    }
+    void ISTR::BackSpace(std::string& mutate) {
+        _putch('\b');
+        _putch(' ');
+        _putch('\b');
+        mutate.pop_back();
     }
     std::string ISTR::InputStr() {
         static constexpr ASCII_TYPE restriction = ASCII_TYPE::numsAndChars;//shorthand to pass restructions for inputs (may be depricated in the future)
-        static constexpr short max_input_len = 30;
+        static constexpr short max_input_len = 50;
         std::string str;
 
-        while (str.size() < max_input_len) {
+        while (true) {
             const char c = _getch();
-
+            
             if (c == UK_RETURN && !str.empty()) {
                 break;
             }
-            if (ASCIICheck(restriction, c)) {
-                str += c;
-            }
+            if (IfGoodKeyStr(str, c, max_input_len, restriction)) {}
+
             else if (c == UK_BACKSPACE && !str.empty()) {
-                str.pop_back();
+                BackSpace(str);
             }
             else if (c == UK_COPY) {
                 CopiedContent(restriction, str, max_input_len);
@@ -65,8 +95,6 @@ namespace ORDO {
             else if (c == UK_ESCAPE) {
                 return "";
             }
-
-            TerminalPrint(str);
         }
 
         return str;
@@ -76,17 +104,16 @@ namespace ORDO {
         static constexpr short max_num_digits = 9;
         std::string str;
 
-        while (str.size() < max_num_digits) {
+        while (true) {
             const char c = _getch();
 
             if (c == UK_RETURN && !str.empty()) {
                 break;
             }
-            if (ASCIICheck(restriction, c)) {
-                str += c;
-            }
+            if (IfGoodKeyStr(str, c, max_num_digits, restriction)) {}
+
             else if (c == UK_BACKSPACE && !str.empty()) {
-                str.pop_back();
+                BackSpace(str);
             }
             else if (c == UK_COPY) {
                 CopiedContent(restriction, str, max_num_digits);
@@ -94,12 +121,10 @@ namespace ORDO {
             else if (c == UK_ESCAPE) {
                 return -1;
             }
-            TerminalPrint(str);
         }
 
         return std::stoi(str);
     }
-
     int ISTR::InputRange(const unsigned int range) {
         static constexpr ASCII_TYPE restriction = ASCII_TYPE::nums;//shorthand to pass restructions for inputs (may be depricated in the future)
         std::string str;
@@ -111,21 +136,13 @@ namespace ORDO {
             if (c == UK_RETURN && !str.empty()) {
                 break;
             }
-            if (ASCIICheck(restriction, c)) {
-                if (str.empty() && c == UK_ZERO) {//first number can't be 0
-                    continue;
-                }
-                if (std::stoi(str += c) > range) {
-                    str.pop_back();
-                }
-            }
-            else if (c == UK_BACKSPACE && str.size() > 0) {
-                str.pop_back();
+            IfGoodRange(str, c, range, restriction);
+            if (c == UK_BACKSPACE && str.size() > 0) {
+                BackSpace(str);
             }
             else if (c == UK_ESCAPE) {
                 return -1;
             }
-            TerminalPrint(str);
         }
 
         return std::stoi(str);
