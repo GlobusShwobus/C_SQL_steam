@@ -148,10 +148,12 @@
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Definitions.cpp" />
     <ClCompile Include="Inputs.cpp" />
+    <ClCompile Include="myhelpers.cpp" />
     <ClCompile Include="Pages.cpp" />
     <ClCompile Include="Steam.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="myhelpers.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Entity.h" />

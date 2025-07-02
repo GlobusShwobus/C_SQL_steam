@@ -16,6 +16,12 @@
     <Filter Include="logs">
       <UniqueIdentifier>{ef571d5e-8a81-499b-b442-a92e99b1d2b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inputs">
+      <UniqueIdentifier>{d2d43dde-1192-4c03-a31d-6e7a3df4787b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="myhelpers">
+      <UniqueIdentifier>{b8fa50aa-ab83-4147-82a3-9afa5660b3c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,9 +33,6 @@
     <ClCompile Include="Definitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Inputs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,15 +42,18 @@
     <ClCompile Include="logMessage.cpp">
       <Filter>logs</Filter>
     </ClCompile>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="myhelpers.cpp">
+      <Filter>myhelpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Inputs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MakeFile.h">
@@ -64,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.h">
+      <Filter>inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="myhelpers.h">
+      <Filter>myhelpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
