@@ -3,13 +3,7 @@
 #include <string>
 #include <iostream>
 
-#define NOMINMAX
-#include <Windows.h>
-#include <ctime>
-
-
-
-
+/*
 #define UK_ZERO 48           //unique key 0
 #define UK_ONE 49            //unique key 1
 #define UK_NINE 57           //unique key 9
@@ -38,7 +32,7 @@
 #define SR_SEVEN 7           //select range 7
 #define SR_EIGHT 8           //select range 8
 #define SR_NINE 9            //select range 9
-
+*/
 
 namespace ORDO { //input string
 

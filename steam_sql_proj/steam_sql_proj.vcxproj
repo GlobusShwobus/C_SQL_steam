@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)include\curl_inc;$(SolutionDir)include\connector_inc\jdbc;$(SolutionDir)include\connector_inc\mysql;$(SolutionDir)include\connector_inc\mysqlx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)include\curl_inc;$(SolutionDir)include\connector_inc\jdbc;$(SolutionDir)include\connector_inc\mysql;$(SolutionDir)include\connector_inc\mysqlx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)include\curl_inc;$(SolutionDir)include\connector_inc\jdbc;$(SolutionDir)include\connector_inc\mysql;$(SolutionDir)include\connector_inc\mysqlx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)include\curl_inc;$(SolutionDir)include\connector_inc\jdbc;$(SolutionDir)include\connector_inc\mysql;$(SolutionDir)include\connector_inc\mysqlx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -152,6 +152,7 @@
     <ClCompile Include="Steam.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="utils.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Inputs.h" />
