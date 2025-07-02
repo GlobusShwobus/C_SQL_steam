@@ -3,9 +3,13 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <conio.h>
+#include <iostream>
+
+#define NOMINMAX
 #include <Windows.h>
 #include <ctime>
+
+
 
 
 #define UK_ZERO 48           //unique key 0
@@ -40,27 +44,54 @@
 
 namespace ORDO { //input string
 
-    //input string
-    class ISTR {
+    static void error_input_check(std::istream& stream) {
+        if (stream.fail()) {
+            stream.clear();
+            stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            throw std::runtime_error("invalid input");
+        }
+    }
+    static void error_range_check(int checked, unsigned int min, unsigned int max) {
+        if (checked < min || checked > max) {
+            throw std::runtime_error("out of range input");
+        }
+    }
 
-        enum class ASCII_TYPE {
-            nums, chars, numsAndChars, printables
-        };
+    static std::string InputStr() {
+        std::string str;
+        std::cin >> str;
+        error_input_check(std::cin);
+        return str;
+    }
+    static int InputInt() {
+        int n = 0;
+        std::cin >> n;
+        error_input_check(std::cin);
 
-        static bool ASCIICheck(const ASCII_TYPE t, char c);
-        static void CopiedContent(const ASCII_TYPE t, std::string& mutate, const int max_size);
-        static bool IfGoodKeyStr(std::string& mutate, const char c, const short max_len, const ASCII_TYPE restriction);
-        static void IfGoodRange(std::string& mutate, const char c, const short max_range, const ASCII_TYPE resrestriction);
-        static void BackSpace(std::string& mutate);
-    public:
+        return n;
+    }
+    static int InputRange(unsigned int min, unsigned int max) {
+        int n = 0;
+        std::cin >> n;
+        error_input_check(std::cin);
+        error_range_check(n, min, max);
+        return n;
+    }
+    static std::string InputStr(const std::string& msg) {
+        std::cout << msg;
+        return InputStr();
+    }
+    static int InputInt(const std::string& msg) {
+        std::cout << msg;
+        return InputInt();
+    }
+    static int InputRange(unsigned int min, unsigned int max, const std::string& msg) {
+        std::cout << msg;
+        return InputRange(min, max);
+    }
 
-        static std::string InputStr();
-        static std::string InputStr(const std::string& msg);
-        static int InputNum();
-        static int InputNum(const std::string& msg);
-        static int InputRange(const unsigned int range);
-        static int InputRange(const unsigned int range, const std::string& msg);
-    };
+
+
 
     void LogError(const std::string& error);
     void LogMessage(const std::string& message);

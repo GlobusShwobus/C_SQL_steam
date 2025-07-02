@@ -1,0 +1,1002 @@
+{
+    "response": {
+        "game_count": 66,
+        "games": [
+            {
+                "appid": 220,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "fcfb366051782b8ebf2aa297f3b746395858cb62",
+                "name": "Half-Life 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 940,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 940,
+                "rtime_last_played": 1737236606
+            },
+            {
+                "appid": 320,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "img_icon_url": "795e85364189511f4990861b578084deef086cb1",
+                "name": "Half-Life 2: Deathmatch",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 0,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 0,
+                "rtime_last_played": 0
+            },
+            {
+                "appid": 360,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "img_icon_url": "40b8a62efff5a9ab356e5c56f5c8b0532c8e1aa3",
+                "name": "Half-Life Deathmatch: Source",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 0,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 0,
+                "rtime_last_played": 0
+            },
+            {
+                "appid": 4700,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "img_icon_url": "cc9c44b2c3b3b245b82d13c316a9b238705ff877",
+                "name": "Total War: MEDIEVAL II - Definitive Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 50458,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 50458,
+                "rtime_last_played": 1731609131
+            },
+            {
+                "appid": 4760,
+                "img_icon_url": "5dc68565149dc971af6428157bcb600d80690080",
+                "name": "Rome: Total War",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3328,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3328,
+                "rtime_last_played": 1616270572
+            },
+            {
+                "appid": 4770,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "img_icon_url": "609a824446a556878febbc3aa0be7d1f9b92a4fb",
+                "name": "Rome: Total War - Alexander",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 44,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 44,
+                "rtime_last_played": 1586418898
+            },
+            {
+                "appid": 19900,
+                "content_descriptorids": [
+                    5
+                ],
+                "img_icon_url": "c73f0c967f77518128c6f2a3f0c4069ff49b1441",
+                "name": "Far Cry 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 227,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 227,
+                "rtime_last_played": 1715447425
+            },
+            {
+                "appid": 20900,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "img_icon_url": "746d1cd48fb2e57d579b05b6e9eccba95859e549",
+                "name": "The Witcher: Enhanced Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2377,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2377,
+                "rtime_last_played": 1727809773
+            },
+            {
+                "appid": 13530,
+                "img_icon_url": "8ceeaa9e2d1b0eb804b1826e95e5c268703f6c37",
+                "name": "Prince of Persia: The Two Thrones",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 341,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 341,
+                "rtime_last_played": 1635586188
+            },
+            {
+                "appid": 13600,
+                "img_icon_url": "e65c77b489a5f4e0d4cde9f09d05443b717d0690",
+                "name": "Prince of Persia: The Sands of Time",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 345,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 345,
+                "rtime_last_played": 1635491201
+            },
+            {
+                "appid": 29720,
+                "img_icon_url": "84d87c411109aa303061314bbb45aae0c40b3277",
+                "name": "Guild Wars",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 109,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 109,
+                "rtime_last_played": 1629443033
+            },
+            {
+                "appid": 10180,
+                "has_community_visible_stats": true,
+                "img_icon_url": "ad502494f1658220f9166c7e17ac90422bf6a479",
+                "name": "Call of Duty: Modern Warfare 2 (2009)",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3422,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 1139,
+                "rtime_last_played": 1690990399
+            },
+            {
+                "appid": 10190,
+                "img_icon_url": "7dd7c2d5bce2413131762d7cbee3f059614ed69d",
+                "name": "Call of Duty: Modern Warfare 2 (2009) - Multiplayer",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 66222,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 130,
+                "rtime_last_played": 1633707925
+            },
+            {
+                "appid": 550,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "7d5a243f9500d2f8467312822f8af2a2928777ed",
+                "name": "Left 4 Dead 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 4603,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 4603,
+                "rtime_last_played": 1706472931
+            },
+            {
+                "appid": 400,
+                "has_community_visible_stats": true,
+                "img_icon_url": "cfa928ab4119dd137e50d728e8fe703e4e970aff",
+                "name": "Portal",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 1273,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 720,
+                "rtime_last_played": 1693488884
+            },
+            {
+                "appid": 42700,
+                "has_community_visible_stats": true,
+                "img_icon_url": "ea744d59efded3feaeebcafed224be9eadde90ac",
+                "name": "Call of Duty: Black Ops",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2495,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 1206,
+                "rtime_last_played": 1690564643
+            },
+            {
+                "appid": 42710,
+                "has_community_visible_stats": true,
+                "img_icon_url": "d595fb4b01201cade09e1232f2c41c0866840628",
+                "name": "Call of Duty: Black Ops - Multiplayer",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 1397,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2,
+                "rtime_last_played": 1695478681
+            },
+            {
+                "appid": 22490,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "1711fd8c46d739feec76bd4a64eaeeca5b87e3a7",
+                "name": "Fallout: New Vegas PCR",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 23,
+                "playtime_forever": 3824,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3824,
+                "rtime_last_played": 1723827399
+            },
+            {
+                "appid": 47810,
+                "img_icon_url": "e5e0b9629b314f7338f493d26227eb2bd1172e77",
+                "name": "Dragon Age: Origins - Ultimate Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3787,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3787,
+                "rtime_last_played": 1722363426
+            },
+            {
+                "appid": 620,
+                "has_community_visible_stats": true,
+                "has_leaderboards": true,
+                "img_icon_url": "2e478fc6874d06ae5baf0d147f6f21203291aa02",
+                "name": "Portal 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 1116,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 1116,
+                "rtime_last_played": 1709061306
+            },
+            {
+                "appid": 105600,
+                "has_community_visible_stats": true,
+                "img_icon_url": "858961e95fbf869f136e1770d586e0caefd4cfac",
+                "name": "Terraria",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 0,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 0,
+                "rtime_last_played": 0
+            },
+            {
+                "appid": 20920,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "has_leaderboards": true,
+                "img_icon_url": "62dd5c627664df1bcabc47727c7dcd7ccab353e9",
+                "name": "The Witcher 2: Assassins of Kings Enhanced Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3330,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3330,
+                "rtime_last_played": 1737753808
+            },
+            {
+                "appid": 34330,
+                "has_community_visible_stats": true,
+                "img_icon_url": "2fa97296a62daf0329b3867ad6837a2289229fbb",
+                "name": "Total War: SHOGUN 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 1220,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 1220,
+                "rtime_last_played": 1692465141
+            },
+            {
+                "appid": 220240,
+                "has_community_visible_stats": true,
+                "img_icon_url": "8231f43d3dd47fb4b4111fd6bd4a849e73eb0520",
+                "name": "Far Cry® 3",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 1462,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 1462,
+                "rtime_last_played": 1737485793
+            },
+            {
+                "appid": 271590,
+                "content_descriptorids": [
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "1e72f87eb927fa1485e68aefaff23c7fd7178251",
+                "name": "Grand Theft Auto V Legacy",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 5748,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 5748,
+                "rtime_last_played": 1730747650
+            },
+            {
+                "appid": 3240220,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "8355a7bbdb704f727bfba80ec56bc7228991338e",
+                "name": "Grand Theft Auto V Enhanced",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 0,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 0,
+                "rtime_last_played": 0
+            },
+            {
+                "appid": 307690,
+                "has_community_visible_stats": true,
+                "img_icon_url": "8ef5e84ffbd9a4b3fb28d308073bccb415fc25ab",
+                "name": "Sleeping Dogs: Definitive Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 14,
+                "playtime_forever": 2511,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2511,
+                "rtime_last_played": 1711575905
+            },
+            {
+                "appid": 289650,
+                "has_community_visible_stats": true,
+                "img_icon_url": "0629ffe7fc7d88011c5b9705625bfe3791fe0afe",
+                "name": "Assassin's Creed Unity",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 4228,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 4228,
+                "rtime_last_played": 1735834265
+            },
+            {
+                "appid": 298110,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "be1366a047a515ed2275aa500a36a50de587b7a7",
+                "name": "Far Cry 4",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3117,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3117,
+                "rtime_last_played": 1741033869
+            },
+            {
+                "appid": 362890,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "51182b6a74035eb913b353d5d60e596c3804daf6",
+                "name": "Black Mesa",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2069,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2069,
+                "rtime_last_played": 1748540266
+            },
+            {
+                "appid": 367500,
+                "has_community_visible_stats": true,
+                "img_icon_url": "c21a873b4d4ccd64e582e733c9f319fbb4d7899e",
+                "name": "Dragon's Dogma: Dark Arisen",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3154,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3154,
+                "rtime_last_played": 1709936729
+            },
+            {
+                "appid": 367520,
+                "has_community_visible_stats": true,
+                "img_icon_url": "7b87aecda896ae747a6e40e3eb63498cb8b84df2",
+                "name": "Hollow Knight",
+                "playtime_2weeks": 1923,
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 5292,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 5292,
+                "rtime_last_played": 1750861811
+            },
+            {
+                "appid": 413150,
+                "has_community_visible_stats": true,
+                "img_icon_url": "35d1377200084a4034238c05b0c8930451e2fb40",
+                "name": "Stardew Valley",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 9395,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 9395,
+                "rtime_last_played": 1741011807
+            },
+            {
+                "appid": 431730,
+                "img_icon_url": "da61bd2806f69205a97609dcdd4ca27df3baf800",
+                "name": "Aseprite",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3111,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3111,
+                "rtime_last_played": 1749845846
+            },
+            {
+                "appid": 374320,
+                "has_community_visible_stats": true,
+                "img_icon_url": "7abe1a33129c20cf10d2c74128bbd657a2a2c806",
+                "name": "DARK SOULS™ III",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 5943,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 5943,
+                "rtime_last_played": 1701625762
+            },
+            {
+                "appid": 371660,
+                "content_descriptorids": [
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "5b8109f8e71bc8b5c295d6972b841ffb92702ef0",
+                "name": "Far Cry Primal",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2147,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2147,
+                "rtime_last_played": 1741790926
+            },
+            {
+                "appid": 489830,
+                "content_descriptorids": [
+                    1,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "0dfe3eed5658f9fbd8b62f8021038c0a4190f21d",
+                "name": "The Elder Scrolls V: Skyrim Special Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 10085,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 10085,
+                "rtime_last_played": 1697820072
+            },
+            {
+                "appid": 289070,
+                "has_community_visible_stats": true,
+                "img_icon_url": "9dc914132fec244adcede62fb8e7524a72a7398c",
+                "name": "Sid Meier's Civilization VI",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2729,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2729,
+                "rtime_last_played": 1638126811
+            },
+            {
+                "appid": 292030,
+                "content_descriptorids": [
+                    1,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "78d0ff98b67851f24539cdf2402cf147679134f4",
+                "name": "The Witcher 3: Wild Hunt",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 17248,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 17248,
+                "rtime_last_played": 1746032377
+            },
+            {
+                "appid": 594570,
+                "has_community_visible_stats": true,
+                "img_icon_url": "fe90760b3b9537216e52ccc5d88de2e67ac500c2",
+                "name": "Total War: WARHAMMER II",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2718,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2718,
+                "rtime_last_played": 1628707982
+            },
+            {
+                "appid": 582160,
+                "has_community_visible_stats": true,
+                "img_icon_url": "dff3a53f93d39f1e0432ec4f22d31c12aeefa36f",
+                "name": "Assassin's Creed Origins",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 4296,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 4296,
+                "rtime_last_played": 1685286954
+            },
+            {
+                "appid": 552520,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "928df2d32021f480499a97458068f62c45298e7a",
+                "name": "Far Cry 5",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 6129,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 6129,
+                "rtime_last_played": 1736455405
+            },
+            {
+                "appid": 881100,
+                "has_community_visible_stats": true,
+                "img_icon_url": "a21dbd1d3bd01f0a688f2d7029978d5cdbe14e74",
+                "name": "Noita",
+                "playtime_2weeks": 685,
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 6183,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 6183,
+                "rtime_last_played": 1751142379
+            },
+            {
+                "appid": 356190,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "316c479e5d51d21e15eb8f82338fce82c42c4115",
+                "name": "Middle-earth™: Shadow of War™",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2922,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2922,
+                "rtime_last_played": 1710885309
+            },
+            {
+                "appid": 582010,
+                "has_community_visible_stats": true,
+                "img_icon_url": "6ec147f2d423f435e15eb79b3d82f771913de634",
+                "name": "Monster Hunter: World",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 1,
+                "playtime_forever": 14925,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 14925,
+                "rtime_last_played": 1706435326
+            },
+            {
+                "appid": 814380,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "2704fb9c5465045d00a5b19a0cb1e9bdabbd15cc",
+                "name": "Sekiro™: Shadows Die Twice",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 8533,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 8533,
+                "rtime_last_played": 1738602494
+            },
+            {
+                "appid": 911400,
+                "content_descriptorids": [
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "68e5640754e5ddf29aadff49062fa68cc8c8f4a5",
+                "name": "Assassin's Creed III Remastered",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 5126,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 5126,
+                "rtime_last_played": 1742583418
+            },
+            {
+                "appid": 1002300,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    3,
+                    5,
+                    4
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "07b806ae95311ba727fd4783332f751aeaea92da",
+                "name": "Fear & Hunger",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 386,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 386,
+                "rtime_last_played": 1732030003
+            },
+            {
+                "appid": 524220,
+                "has_community_visible_stats": true,
+                "img_icon_url": "ec431ecb2a5178c5a01bb15550f112f93af029bb",
+                "name": "NieR:Automata™",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 2890,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 2890,
+                "rtime_last_played": 1691344365
+            },
+            {
+                "appid": 812140,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "4b6cf0715b30669411bf204bce7ed99a9c84671b",
+                "name": "Assassin's Creed Odyssey",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 15647,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 15647,
+                "rtime_last_played": 1739128513
+            },
+            {
+                "appid": 1091500,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "ee9d7536d9e1e0daeaab5e7276ecff556e042948",
+                "name": "Cyberpunk 2077",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 1,
+                "playtime_forever": 17365,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 17365,
+                "rtime_last_played": 1734200261
+            },
+            {
+                "appid": 782330,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "14235f425d27ab3b83661ba14c17d22dc90e566b",
+                "name": "DOOM Eternal",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3027,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3027,
+                "rtime_last_played": 1717450405
+            },
+            {
+                "appid": 1151640,
+                "has_community_visible_stats": true,
+                "img_icon_url": "08a1b6df68bdc8c28c974b79325ed8c89417af48",
+                "name": "Horizon Zero Dawn™ Complete Edition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3598,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3598,
+                "rtime_last_played": 1712605590
+            },
+            {
+                "appid": 1085660,
+                "has_community_visible_stats": true,
+                "img_icon_url": "fce050d63f0a2f8eb51b603c7f30bfca2a301549",
+                "name": "Destiny 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 31207,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 31207,
+                "rtime_last_played": 1695561067
+            },
+            {
+                "appid": 1174180,
+                "content_descriptorids": [
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "5106abd9c1187a97f23295a0ba9470c94804ec6c",
+                "name": "Red Dead Redemption 2",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 171,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 171,
+                "rtime_last_played": 1687682362
+            },
+            {
+                "appid": 678960,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "e9c6697e32bc165ef0e46768079ed34a28633069",
+                "name": "CODE VEIN",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 3265,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3265,
+                "rtime_last_played": 1700147345
+            },
+            {
+                "appid": 1222690,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "d9bf2a8fbd07aa6309adb908b03d7521c644f1f9",
+                "name": "Dragon Age™ Inquisition",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 291,
+                "playtime_forever": 8246,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 8246,
+                "rtime_last_played": 1694783077
+            },
+            {
+                "appid": 1245620,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "b6e290dd5a92ce98f89089a207733c70c41a1871",
+                "name": "ELDEN RING",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 35593,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 35593,
+                "rtime_last_played": 1738511667
+            },
+            {
+                "appid": 1436590,
+                "has_community_visible_stats": true,
+                "img_icon_url": "0dfe3d3bd23c9cfc5b1705d1923b312d8d920b06",
+                "name": "Phoenotopia Awakening",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 0,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 0,
+                "rtime_last_played": 0
+            },
+            {
+                "appid": 1888160,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "961383bce3239632856e2e58dbf5d1893f05d808",
+                "name": "ARMORED CORE™ VI FIRES OF RUBICON™",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 6,
+                "playtime_forever": 3687,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 3687,
+                "rtime_last_played": 1702411658
+            },
+            {
+                "appid": 1599340,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "4e4ef2862189e1f1d3052125fb1ed6cb42bcaaf8",
+                "name": "Lost Ark",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 89016,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 89016,
+                "rtime_last_played": 1738784263
+            },
+            {
+                "appid": 2000950,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "dec4f33dfa8c3a47cfadb3a8ef0629740caa536d",
+                "name": "Call of Duty®: Modern Warfare®",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 1301,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 1301,
+                "rtime_last_played": 1695406751
+            },
+            {
+                "appid": 2208920,
+                "content_descriptorids": [
+                    1,
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "3946f91cf6beb0d384a85fc32d71616313dc362e",
+                "name": "Assassin's Creed Valhalla",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 11659,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 11659,
+                "rtime_last_played": 1735583908
+            },
+            {
+                "appid": 990080,
+                "has_community_visible_stats": true,
+                "img_icon_url": "a9ecb94f249768d0ee5ccecbffe8d8c06d9bed59",
+                "name": "Hogwarts Legacy",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 4253,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 4253,
+                "rtime_last_played": 1714229342
+            },
+            {
+                "appid": 2369390,
+                "content_descriptorids": [
+                    2,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "178c21f6ed3ea43c9e5b3c9ea2919e7bca63c7b0",
+                "name": "Far Cry 6",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 7527,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 7527,
+                "rtime_last_played": 1738072997
+            },
+            {
+                "appid": 233270,
+                "content_descriptorids": [
+                    1,
+                    5
+                ],
+                "has_community_visible_stats": true,
+                "img_icon_url": "37ea239abeef5c5b2a90a2f821aaab745633972a",
+                "name": "Far Cry® 3 Blood Dragon",
+                "playtime_deck_forever": 0,
+                "playtime_disconnected": 0,
+                "playtime_forever": 400,
+                "playtime_linux_forever": 0,
+                "playtime_mac_forever": 0,
+                "playtime_windows_forever": 400,
+                "rtime_last_played": 1741378431
+            }
+        ]
+    }
+}
