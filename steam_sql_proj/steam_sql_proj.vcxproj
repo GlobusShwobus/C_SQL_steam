@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="logMessage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Definitions.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Database.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Inputs.h" />
+    <ClInclude Include="logMessage.h" />
     <ClInclude Include="MakeFile.h" />
     <ClInclude Include="Pages.h" />
     <ClInclude Include="Steam.h" />

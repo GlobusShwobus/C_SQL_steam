@@ -1,8 +1,6 @@
 #pragma once
 
-#include <memory>
 #include <string>
-#include <vector>
 #include <iostream>
 
 #define NOMINMAX
@@ -89,44 +87,6 @@ namespace ORDO { //input string
         std::cout << msg;
         return InputRange(min, max);
     }
-
-
-
-
-    void LogError(const std::string& error);
-    void LogMessage(const std::string& message);
-
-    class ERROR_LOG final {
-
-        friend void LogError(const std::string& str);
-
-        static std::vector<std::string>* GetInstance();
-        static void Add(const std::string& what);
-        static void Add(const char* what);
-    public:
-        static const std::vector<std::string>& Get();
-    private:
-        ERROR_LOG() = delete;
-        ERROR_LOG(const ERROR_LOG&) = delete;
-        ERROR_LOG& operator=(const ERROR_LOG&) = delete;
-    };
-
-    class MESSAGE_LOG {
-
-        friend void LogError(const std::string& str);
-        friend void LogMessage(const std::string& str);
-
-        static std::vector<std::string>* GetInstance();
-        static void Add(const std::string& what);
-        static void Add(const char* what);
-    public:
-        static void Flush();
-    private:
-        MESSAGE_LOG() = delete;
-        MESSAGE_LOG(const MESSAGE_LOG&) = delete;
-        MESSAGE_LOG& operator=(const MESSAGE_LOG&) = delete;
-    };
-
     //manip strings
     namespace MSTR {
         void RemoveSymbols(std::string& from, const std::string& symbols);

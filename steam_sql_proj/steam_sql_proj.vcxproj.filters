@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="logs">
+      <UniqueIdentifier>{ef571d5e-8a81-499b-b442-a92e99b1d2b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +36,9 @@
     <ClCompile Include="Steam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="logMessage.cpp">
+      <Filter>logs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h">
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="Steam.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logMessage.h">
+      <Filter>logs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

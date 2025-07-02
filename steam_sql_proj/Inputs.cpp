@@ -13,48 +13,6 @@ namespace ORDO {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //   logging stuff
-
-    void LogError(const std::string& error) {
-        ERROR_LOG::Add(error);
-        MESSAGE_LOG::Add(error);
-    }
-    void LogMessage(const std::string& message) {
-        MESSAGE_LOG::Add(message);
-    }
-    std::vector<std::string>* ERROR_LOG::GetInstance() {
-        static std::unique_ptr<std::vector<std::string>> error_log = std::make_unique<std::vector<std::string>>();
-        return error_log.get();
-    }
-    void ERROR_LOG::Add(const std::string& what) {
-        GetInstance()->push_back(what);
-    }
-    void ERROR_LOG::Add(const char* what) {
-        GetInstance()->push_back(what);
-    }
-    const std::vector<std::string>& ERROR_LOG::Get() {
-        return *GetInstance();
-    }
-    std::vector<std::string>* MESSAGE_LOG::GetInstance() {
-        static std::unique_ptr<std::vector<std::string>> message_log = std::make_unique<std::vector<std::string>>();
-        return message_log.get();
-    }
-    void MESSAGE_LOG::Add(const std::string& what) {
-        GetInstance()->push_back(what);
-    }
-    void MESSAGE_LOG::Add(const char* what) {
-        GetInstance()->push_back(what);
-    }
-    void MESSAGE_LOG::Flush() {
-        for (const auto& each : *GetInstance()) {
-            printf("\n%s", each.c_str());
-        }
-        GetInstance()->clear();
-    }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //   string manipulation stuff
 
     void MSTR::RemoveSymbols(std::string& from, const std::string& symbols) {
