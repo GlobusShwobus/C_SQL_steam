@@ -58,16 +58,7 @@ namespace ORDO {
         std::unique_ptr<sql::Connection> Connect()const;
     public:
 
-        DATABASE(const std::string& sName, const std::string& sPass, const std::string& _steam_id) :server_name(sName), server_password(sPass), steam_id(_steam_id) {
-            driver = sql::mysql::get_driver_instance();
-            std::unique_ptr<sql::Connection> connect(driver->connect(ip, server_name, server_password));
-
-            if (connect->isValid()) {
-                LogMessage("Connection to local SQL server established");
-            }
-        }
-
-
+        DATABASE(const std::string& sName, const std::string& sPass, const std::string& _steam_id);
 
         //creates a new schema, does not assign it a working schema
         void CreateNewSchema()const;

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <filesystem>
+#include "logMessage.h"
 
 #define DATA_FOLDER "../DATA"
 #define ERROR_LOG_FOLDER "../ERROR_LOG"
@@ -68,12 +69,12 @@ namespace ORDO {
 	public:
 		FILE_MANAGER(const std::string& path) :some_path(path) {
 			if (std::filesystem::create_directories(some_path)) {
-				LogMessage("Folder missing. Created new at >> " + some_path.string());
+				Logs::Add({level::INFO, "Folder missing. Created new at >> " + some_path.string() });
 			}
 		}
 		FILE_MANAGER(const char* path) :some_path(path) {
 			if (std::filesystem::create_directories(some_path)) {
-				LogMessage("Folder missing. Created new at >> " + some_path.string());
+				Logs::Add({ level::INFO, "Folder missing. Created new at >> " + some_path.string() });
 			}
 		}
 

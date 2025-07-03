@@ -1,5 +1,6 @@
 #include "Pages.h"
-
+#include "myhelpers.h"
+#include "Inputs.h"
 
 int main() {
 
@@ -21,18 +22,19 @@ int main() {
     bool end_session = false;
 
     while (!end_session) {
-        TRefresh();
+        lazy::console_clear();
+        lazy::console_title();
 
-        const int select = ISTR::InputRange(SR_THREE, MAIN_PAGE);
+        const int select = Inputs::InputRange(1, 3, MAIN_PAGE);
 
         switch (select) {
-        case SR_ONE:
+        case 1:
             SteamPageMain(*handle, data_col);
             break;
-        case SR_TWO:
+        case 2:
             SQLPageMain(*database, data_col);
             break;
-        case SR_THREE:
+        case 3:
             end_session = true;
             break;
         }

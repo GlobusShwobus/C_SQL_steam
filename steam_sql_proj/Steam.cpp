@@ -1,4 +1,6 @@
 #include "steam.h"
+#include "logMessage.h"
+#include "myhelpers.h"
 
 namespace ORDO {
 
@@ -15,8 +17,7 @@ namespace ORDO {
             const nlohmann::json lookfor = nlohmann::json::parse(recipient.memory); //convert char* to json to parse it
 
             if (lookfor.contains("response") && lookfor["response"].contains("players") && !lookfor["response"]["players"].empty()) {
-                
-                LogMessage("Steam User identity established");
+                Logs::Add({ level::INFO,  "Steam User identity established" });
             }
             else {
                 throw std::invalid_argument("Error:: HTTP code 200. Likely API good; user id bad/private");
@@ -53,15 +54,13 @@ namespace ORDO {
         try {
             auto type = static_cast<PLAYER>(data.type);//DATA stores the general version of ENTITY which is dangerous, thus the cast to PLAYER version to satisfy the requirement of Request
 
-            if (data.Add(std::move(LIBCURL_API_CALL::Request(type, api_key, user_id)))) {//attempts to add the json, if it fails unique_ptr will deal with it
-                LogMessage(std::string("Data recieved for >>> ") + TypeToStr(data.type));
-            }
-            else {
-                LogMessage(std::string("\nData Insertion skiped due to empty data >>> ") + TypeToStr(data.type));
-            }
+            if (data.Add(std::move(LIBCURL_API_CALL::Request(type, api_key, user_id))))//attempts to add the json, if it fails unique_ptr will deal with it
+                Logs::Add({ level::INFO,  std::string("Data recieved for >>> ") + TypeToStr(data.type) });    
+            else 
+                Logs::Add({ level::WARN,  std::string("Data Insertion skiped due to empty data >>> ") + TypeToStr(data.type) });
         }
         catch (const std::exception& e) {
-            LogError(std::string("RequestPlayerRelated Error: ") + e.what());
+            Logs::Add({ level::BAD,  std::string("RequestPlayerRelated Error: ") + e.what() });
         }
     }
     void STEAM::RequestAchievements(ACHIEVEMENTS& data)const {
@@ -69,10 +68,10 @@ namespace ORDO {
             auto owned_games_list = GetOwnedAppIDs();
 
             SetupAchievementData(*owned_games_list, data);
-            TWait();
+            lazy::console_wait();
         }
         catch (std::exception& e) {
-            LogError(e.what());
+            Logs::Add({ level::BAD,  e.what() });
         }
     }
     void STEAM::ReqeustAchievementsByChoice(ACHIEVEMENTS& data)const {
@@ -85,13 +84,12 @@ namespace ORDO {
             std::string err_msg = "";
 
             while (true) {
-
-                MSTR::PrintList(*owned_games_list);
+                lazy::PrintList(*owned_games_list);
                 printf("\n\nCurrent Wishlsit::\n=====================================================================================\n");
-                MSTR::PrintList(*wishlist);
+                lazy::PrintList(*wishlist);
                 printf(err_msg.c_str());
 
-                const int input_index = ISTR::InputRange(owned_games_list->size(), "\n\nInput >>> ");
+                const int input_index = Inputs::InputRange(1, owned_games_list->size()+1, "\n\nInput >>> ");//probably error atm but this is for later
 
                 if (input_index == 0) {//input functions are pepega currently. when enter (return key) is pressed it has to return a value if no value was entered, thus 0
                     break;
@@ -105,10 +103,10 @@ namespace ORDO {
                 }
             }
             SetupAchievementData(*wishlist, data);
-            TWait();
+            lazy::console_wait();
         }
         catch (const std::exception& e) {
-            LogError(std::string("RequestSelectionList Error:: ") + e.what());
+            Logs::Add({level::BAD, std::string("RequestSelectionList Error:: ") + e.what() });
         }
     }
 
@@ -241,7 +239,7 @@ namespace ORDO {
         char* ptr = (char*)realloc(mem->memory, mem->size + real_size + 1);
 
         if (!ptr) {
-            LogMessage("LIBCURL::MemCallBack: Not enough memory (realloc returned NULL)");
+            Logs::Add({ level::WARN, "LIBCURL::MemCallBack: Not enough memory (realloc returned NULL)" });
             return 0;
         }
 

@@ -5,7 +5,7 @@
 namespace ORDO {
 
     enum level {
-        INFO, WARN, ERROR, FATAL, JUNK
+        INFO, WARN, BAD, FATAL, JUNK
     };
     struct basic_log {
         level logLevel = level::JUNK;

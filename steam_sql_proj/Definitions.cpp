@@ -12,7 +12,7 @@ namespace ORDO {
     }
     bool DATA::Add(std::unique_ptr<nlohmann::json> _data) {
         if (_data == nullptr) {
-            Logs::Add({ level::ERROR, "DATA::add < nullptr recieved >" });
+            Logs::Add({ level::BAD, "DATA::add < nullptr recieved >" });
             return false;
         }
         if (_data->empty())
@@ -42,7 +42,7 @@ namespace ORDO {
 
     bool ACHIEVEMENTS::Add(std::unique_ptr<nlohmann::json> for_global, std::unique_ptr<nlohmann::json> for_player, std::unique_ptr<nlohmann::json> for_schema) {
         if (for_global == nullptr || for_player == nullptr || for_schema == nullptr) {
-            Logs::Add({ level::ERROR, "ACHIEVEMENTS::add < nullptr recieved >" });
+            Logs::Add({ level::BAD, "ACHIEVEMENTS::add < nullptr recieved >" });
             return false;
         }
         if (for_global->empty() || for_player->empty() || for_schema->empty()) {
@@ -64,7 +64,7 @@ namespace ORDO {
         else if (type == ACHIEVEMENT::ach_player) { player.Display(); }
         else if (type == ACHIEVEMENT::ach_schema) { schema.Display(); }
         else {
-            Logs::Add({ level::ERROR, "ACHIEVEMENTS::add < invalid entity type >" });
+            Logs::Add({ level::BAD, "ACHIEVEMENTS::add < invalid entity type >" });
         }
     }
 
@@ -126,7 +126,7 @@ namespace ORDO {
             output << data.dump(4);
         }
         catch (const std::exception& e) {
-            Logs::Add({ level::ERROR, std::string("OUTPUT_HANDLE ") + e.what() });
+            Logs::Add({ level::BAD, std::string("OUTPUT_HANDLE ") + e.what() });
         }
     }
     OUTPUT_HANDLE::OUTPUT_HANDLE(const std::filesystem::path& path, const std::vector<std::string>& data) {
@@ -137,7 +137,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            Logs::Add({ level::ERROR, std::string("OUTPUT_HANDLE ") + e.what() });
+            Logs::Add({ level::BAD, std::string("OUTPUT_HANDLE ") + e.what() });
         }
     }
     INPUT_HANDLE::INPUT_HANDLE(const std::filesystem::path& file_path, nlohmann::json& into) {
@@ -146,7 +146,7 @@ namespace ORDO {
             input >> into;
         }
         catch (const std::exception& e) {
-            Logs::Add({ level::ERROR, std::string("INPUT_HANDLE ") + e.what() });
+            Logs::Add({ level::BAD, std::string("INPUT_HANDLE ") + e.what() });
         }
     }
 
@@ -159,7 +159,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            Logs::Add({ level::ERROR, std::string("ERROR FILE_MANAGER::GetFolderContents ") + e.what() });
+            Logs::Add({ level::BAD, std::string("ERROR FILE_MANAGER::GetFolderContents ") + e.what() });
             file_names.clear();
         }
         return file_names;
@@ -195,7 +195,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            Logs::Add({ level::ERROR, e.what()});
+            Logs::Add({ level::BAD, e.what()});
         }
     }
     void FILE_MANAGER::MakeManyJSON(const std::vector<std::unique_ptr<nlohmann::json>>& list, const std::unique_ptr<std::vector<std::string>>& names)const {
@@ -223,7 +223,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            Logs::Add({ level::ERROR, e.what()});
+            Logs::Add({ level::BAD, e.what()});
         }
     }
 }

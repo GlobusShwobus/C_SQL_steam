@@ -1,7 +1,9 @@
 #include "Inputs.h"
 
 namespace ORDO {
+
     namespace Inputs {
+
         void error_input_check(std::istream& stream) {
             if (stream.fail()) {
                 stream.clear();
