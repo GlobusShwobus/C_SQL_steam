@@ -6,16 +6,16 @@
 namespace ORDO {
     namespace Inputs {
 
-        static void error_input_check(std::istream& stream);;
-        static void error_range_check(int checked, unsigned int min, unsigned int max);
+        void error_input_check(std::istream& stream);;
+        void error_range_check(int checked, unsigned int min, unsigned int max);
 
-        static std::string InputStr();
-        static int InputInt();
-        static int InputRange(unsigned int min, unsigned int max);
+        std::string InputStr();
+        int InputInt();
+        int InputRange(unsigned int min, unsigned int max);
 
-        static std::string InputStr(const std::string& msg);
-        static int InputInt(const std::string& msg);
-        static int InputRange(unsigned int min, unsigned int max, const std::string& msg);
+        std::string InputStr(const std::string& msg);
+        int InputInt(const std::string& msg);
+        int InputRange(unsigned int min, unsigned int max, const std::string& msg);
     
     }
 }
