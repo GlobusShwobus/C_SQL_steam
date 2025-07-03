@@ -1,5 +1,7 @@
 #include "Entity.h"
 #include "MakeFile.h"
+#include "logMessage.h"
+#include "myhelpers.h"
 
 namespace ORDO {
     bool DATA::Empty()const {
@@ -9,9 +11,13 @@ namespace ORDO {
         data.clear();
     }
     bool DATA::Add(std::unique_ptr<nlohmann::json> _data) {
-        if (_data == nullptr) { LogError("Recieved nullptr"); return false; }
-        if (_data->empty()) { return false; }
-
+        if (_data == nullptr) {
+            Logs::Add({ level::ERROR, "DATA::add < nullptr recieved >" });
+            return false;
+        }
+        if (_data->empty())
+            return false;
+        
         data.push_back(std::move(_data));
         return true;
     }
@@ -20,10 +26,10 @@ namespace ORDO {
             for (const std::unique_ptr<nlohmann::json>& entry : data) {
                 printf("\n%s", entry->dump().c_str());
             }
-            TWait();
+            lazy::console_wait();
         }
         else {
-            LogMessage("No data to display...");
+            Logs::Add({level::INFO, "DATA::Display < no display data >"});
         }
     }
     const std::vector<std::unique_ptr<nlohmann::json>>& DATA::Read()const {
@@ -36,7 +42,7 @@ namespace ORDO {
 
     bool ACHIEVEMENTS::Add(std::unique_ptr<nlohmann::json> for_global, std::unique_ptr<nlohmann::json> for_player, std::unique_ptr<nlohmann::json> for_schema) {
         if (for_global == nullptr || for_player == nullptr || for_schema == nullptr) {
-            LogError("ACHIEVEMENTS::Add: Recieved nullptr");
+            Logs::Add({ level::ERROR, "ACHIEVEMENTS::add < nullptr recieved >" });
             return false;
         }
         if (for_global->empty() || for_player->empty() || for_schema->empty()) {
@@ -58,7 +64,7 @@ namespace ORDO {
         else if (type == ACHIEVEMENT::ach_player) { player.Display(); }
         else if (type == ACHIEVEMENT::ach_schema) { schema.Display(); }
         else {
-            LogError("ACHIEVEMENTS::Display invalid ENTITY type entered");
+            Logs::Add({ level::ERROR, "ACHIEVEMENTS::add < invalid entity type >" });
         }
     }
 
@@ -120,7 +126,7 @@ namespace ORDO {
             output << data.dump(4);
         }
         catch (const std::exception& e) {
-            LogError(std::string("OUTPUT_HANDLE:: ") + e.what());
+            Logs::Add({ level::ERROR, std::string("OUTPUT_HANDLE ") + e.what() });
         }
     }
     OUTPUT_HANDLE::OUTPUT_HANDLE(const std::filesystem::path& path, const std::vector<std::string>& data) {
@@ -131,7 +137,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            LogError(std::string("OUTPUT_HANDLE:: ") + e.what());
+            Logs::Add({ level::ERROR, std::string("OUTPUT_HANDLE ") + e.what() });
         }
     }
     INPUT_HANDLE::INPUT_HANDLE(const std::filesystem::path& file_path, nlohmann::json& into) {
@@ -140,7 +146,7 @@ namespace ORDO {
             input >> into;
         }
         catch (const std::exception& e) {
-            LogError(std::string("INPUT_HANDLE:: ") + e.what());
+            Logs::Add({ level::ERROR, std::string("INPUT_HANDLE ") + e.what() });
         }
     }
 
@@ -153,7 +159,7 @@ namespace ORDO {
             }
         }
         catch (const std::exception& e) {
-            LogError(std::string("ERROR FILE_MANAGER::GetFolderContents ") + e.what());
+            Logs::Add({ level::ERROR, std::string("ERROR FILE_MANAGER::GetFolderContents ") + e.what() });
             file_names.clear();
         }
         return file_names;
@@ -170,25 +176,26 @@ namespace ORDO {
     void FILE_MANAGER::MakeJSON(const std::vector<std::unique_ptr<nlohmann::json>>& data)const {
         try {
             if (data.empty()) {
-                LogMessage("FILE_MANAGER::MakeJSON empty container");
+                Logs::Add({ level::INFO, "FILE_MANAGER::MakeJSON empty container" });
                 return;
             }
 
             std::vector<std::string> folder_contents = GetFolderContents();
-            TRefresh();
+            lazy::console_clear();
+            lazy::console_title();
 
-            std::string new_file_name = ISTR::InputStr("\nEnter file name >>> ");
+            std::string new_file_name = Inputs::InputStr("\nEnter file name >>> ");
 
             for (const auto& each : data) {
                 AssignNameCopyCheck(folder_contents, new_file_name, "_copy");
                 folder_contents.push_back(new_file_name);
                 const std::filesystem::path new_file_path = some_path / (new_file_name + ".json");
                 OUTPUT_HANDLE handle(new_file_path, *each);
-                LogMessage(std::string("JSON file created for >> ") + new_file_name);
+                Logs::Add({ level::INFO, std::string("JSON file created for >> ")+ new_file_name });
             }
         }
         catch (const std::exception& e) {
-            LogError(e.what());
+            Logs::Add({ level::ERROR, e.what()});
         }
     }
     void FILE_MANAGER::MakeManyJSON(const std::vector<std::unique_ptr<nlohmann::json>>& list, const std::unique_ptr<std::vector<std::string>>& names)const {
@@ -197,7 +204,7 @@ namespace ORDO {
                 throw std::invalid_argument("FILE_MANAGER::MakeManyJSON number of JSON objects and names do not match");
             }
             if (list.empty()) {
-                LogMessage("FILE_MANAGER::MakeManyJSON empty container");
+                Logs::Add({ level::WARN, "FILE_MANAGER::MakeManyJSON empty container" });
                 return;
             }
             const std::vector<std::string> folder_contents = GetFolderContents();
@@ -211,13 +218,12 @@ namespace ORDO {
             for (const std::unique_ptr<nlohmann::json>& each : list) {
                 const std::filesystem::path new_file_path = some_path / ((*names)[index] + ".json");
                 OUTPUT_HANDLE handle(new_file_path, *each.get());
-
-                LogMessage(std::string("JSON file created for >> ") + (*names)[index]);
+                Logs::Add({ level::INFO, std::string("JSON file created for >> ") + (*names)[index] });
                 index++;
             }
         }
         catch (const std::exception& e) {
-            LogError(e.what());
+            Logs::Add({ level::ERROR, e.what()});
         }
     }
 }

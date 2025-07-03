@@ -68,9 +68,6 @@
     <ClInclude Include="logMessage.h">
       <Filter>logs</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Inputs.h">
       <Filter>inputs</Filter>
     </ClInclude>

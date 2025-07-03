@@ -15,6 +15,7 @@ namespace ORDO {
             const nlohmann::json lookfor = nlohmann::json::parse(recipient.memory); //convert char* to json to parse it
 
             if (lookfor.contains("response") && lookfor["response"].contains("players") && !lookfor["response"]["players"].empty()) {
+                
                 LogMessage("Steam User identity established");
             }
             else {

@@ -154,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myhelpers.h" />
-    <ClInclude Include="utils.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Inputs.h" />
