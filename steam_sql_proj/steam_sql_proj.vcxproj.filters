@@ -48,6 +48,9 @@
     <ClCompile Include="myhelpers.cpp">
       <Filter>myhelpers</Filter>
     </ClCompile>
+    <ClCompile Include="web_request.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="myhelpers.h">
       <Filter>myhelpers</Filter>
+    </ClInclude>
+    <ClInclude Include="web_request.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
