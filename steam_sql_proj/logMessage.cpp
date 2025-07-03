@@ -2,55 +2,40 @@
 #include <memory>
 namespace ORDO {
 	
-    std::vector<std::string>& ERROR_LOG::GetLogs() {
-        static std::unique_ptr<std::vector<std::string>> error_log = std::make_unique<std::vector<std::string>>();
-        return *error_log;
+    std::vector<basic_log>& Logs::GetLogs() {
+        static std::unique_ptr<std::vector<basic_log>> logs = std::make_unique<std::vector<basic_log>>();
+        return *logs;
     }
-    const std::string& ERROR_LOG::GetLastLog() {
-        auto& log = ERROR_LOG::GetLogs();
-        if (!log.empty()) {
-            return log.back();
+    void Logs::Add(basic_log&& log) {
+        GetLogs().emplace_back(std::move(log));
+    }
+    void Logs::Clear() {
+        GetLogs().clear();
+    }
+    void Logs::ClearType(const level type) {
+        auto& logs = Logs::GetLogs();
+        logs.erase(std::remove_if(logs.begin(), logs.end(), [type](const basic_log& log) {
+            return log.logLevel == type;
+            }), logs.end());
+    }
+    const std::string& Logs::GetLastLog() {
+        auto& logs = Logs::GetLogs();
+        if (!logs.empty()) {
+            return logs.back().info;
         }
         else {
-            return "No errors";
+            return noLogs;
         }
     }
-    void ERROR_LOG::PopBack() {
-        ERROR_LOG::GetLogs().pop_back();
-    }
-    void ERROR_LOG::Add(const std::string& what) {
-        ERROR_LOG::GetLogs().emplace_back(what);
-    }
-    void ERROR_LOG::Add(const char* what) {
-        ERROR_LOG::GetLogs().emplace_back(std::string(what));
-    }
-    void ERROR_LOG::Flush() {
-        ERROR_LOG::GetLogs().clear();
-    }
+    const std::string& Logs::GetLastLog(const level type) {
+        auto& logs = Logs::GetLogs();
+        const std::string* str = nullptr;
 
-    static std::vector<std::string>& MESSAGE_LOG::GetLogs() {
-        static std::unique_ptr<std::vector<std::string>> message_log = std::make_unique<std::vector<std::string>>();
-        return *message_log;
-    }
-    static const std::string& MESSAGE_LOG::GetLastLog() {
-        auto& log = MESSAGE_LOG::GetLogs();
-        if (!log.empty()) {
-            return log.back();
+        for (const auto& log : logs) {
+            if (log.logLevel == type) {
+                str = &log.info;
+            }
         }
-        else {
-            return "No messages";
-        }
-    }
-    static void MESSAGE_LOG::PopBack() {
-        MESSAGE_LOG::GetLogs().pop_back();
-    }
-    static void MESSAGE_LOG::Add(const std::string& what) {
-        MESSAGE_LOG::GetLogs().emplace_back(what);
-    }
-    static void MESSAGE_LOG::Add(const char* what) {
-        MESSAGE_LOG::GetLogs().emplace_back(std::string(what));
-    }
-    static void MESSAGE_LOG::Flush() {
-        MESSAGE_LOG::GetLogs().clear();
+        return str ? *str : noLogs;
     }
 }
