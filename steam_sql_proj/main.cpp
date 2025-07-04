@@ -12,7 +12,7 @@ void textFileTest() {
     Request test;
 
     std::string result;
-    test.setLoicence("../include/curl_inc/cacert.pem", &result);//simply using "cacert.pem" does not work, whatever...
+    test.setLoicence("C:/Users/ADMIN/Desktop/tools/cacert.pem", &result);//simply using "cacert.pem" does not work, whatever...
 
     std::cout << result << "\n";
 
@@ -38,7 +38,7 @@ void jsonFileTest() {
     Request test;
 
     std::string result;
-    test.setLoicence("../include/curl_inc/cacert.pem", &result);//simply using "cacert.pem" does not work, whatever...
+    test.setLoicence("C:/Users/ADMIN/Desktop/tools/cacert.pem", &result);//simply using "cacert.pem" does not work, whatever...
 
     std::cout << result << "\n";
 
@@ -65,7 +65,7 @@ void pngFileTest() {
     Request test;
 
     std::string result;
-    test.setLoicence("../include/curl_inc/cacert.pem", &result);//simply using "cacert.pem" does not work, whatever...
+    test.setLoicence("C:/Users/ADMIN/Desktop/tools/cacert.pem", &result);//simply using "cacert.pem" does not work, whatever...
 
     std::cout << result << "\n";
 
