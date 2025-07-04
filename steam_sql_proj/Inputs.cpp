@@ -19,7 +19,9 @@ namespace ORDO {
 
         std::string InputStr() {
             std::string str;
-            std::cin >> str;
+            if (std::cin.peek() == '\n')
+                std::cin.ignore();
+            std::getline(std::cin, str);
             error_input_check(std::cin);
             return str;
         }
@@ -27,7 +29,6 @@ namespace ORDO {
             int n = 0;
             std::cin >> n;
             error_input_check(std::cin);
-
             return n;
         }
         int InputRange(unsigned int min, unsigned int max) {

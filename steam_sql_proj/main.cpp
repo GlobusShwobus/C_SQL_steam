@@ -101,6 +101,8 @@ void testInputsString2() {
 int main() {
 
     testInputsString2();
+    std::cout << "\n";
+    testInputsString2();
 
     
     return 0;
