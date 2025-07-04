@@ -11,11 +11,13 @@ namespace ORDO {
 
         std::string InputStr();
         int InputInt();
-        int InputRange(unsigned int min, unsigned int max);
+        float InputFloat();
+        int InputRange(unsigned int min, unsigned int max);    
 
-        std::string InputStr(const std::string& msg);
-        int InputInt(const std::string& msg);
-        int InputRange(unsigned int min, unsigned int max, const std::string& msg);
-    
+        //DEPRICATED, DELETE LATER, DON'T WRITE NEW SCRIPTS WITH THESE
+        std::string InputStr(const std::string& str);
+        int InputInt(const std::string& str);
+        int InputRange(unsigned int min, unsigned int max, const std::string& str);
+        ////////////////////////////
     }
 }

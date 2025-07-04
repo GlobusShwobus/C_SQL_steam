@@ -93,16 +93,66 @@ void testInputsString1() {
     std::string str1 = Inputs::InputStr();
     std::cout << str1;
 }
-void testInputsString2() {
-    std::string str1 = Inputs::InputStr("enter: ");
-    std::cout << str1;
+void testInputInt1() {
+    std::cout << "enter: ";
+    int n = Inputs::InputInt();
+    std::cout << n;
+}
+void testInputInt2() {
+    bool loop = true;
+
+    while (loop) {
+
+        try {
+            std::cout << "enter: ";
+            int n = Inputs::InputInt();
+            std::cout << n;
+            loop = false;
+        }
+        catch (std::exception& e) {
+            std::cout << e.what() << "\n";;
+        }
+
+    }
+}
+void testInputFloat() {
+    bool loop = true;
+
+    while (loop) {
+
+        try {
+            std::cout << "enter: ";
+            float n = Inputs::InputFloat();
+            std::cout << n;
+            loop = false;
+        }
+        catch (std::exception& e) {
+            std::cout << e.what() << "\n";
+        }
+
+    }
+}
+void testInputRange() {
+    bool loop = true;
+
+    while (loop) {
+
+        try {
+            std::cout << "enter: ";
+            int n = Inputs::InputRange(5, 50);
+            std::cout << n;
+            loop = false;
+        }
+        catch (std::exception& e) {
+            std::cout << e.what() << "\n";
+        }
+
+    }
 }
 
 int main() {
-
-    testInputsString2();
-    std::cout << "\n";
-    testInputsString2();
+    testInputInt2();
+    testInputRange();
 
     
     return 0;

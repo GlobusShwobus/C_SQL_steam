@@ -10,6 +10,7 @@ namespace ORDO {
                 stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 throw std::runtime_error("invalid input");
             }
+            stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         void error_range_check(int checked, unsigned int min, unsigned int max) {
             if (checked < min || checked > max) {
@@ -31,6 +32,12 @@ namespace ORDO {
             error_input_check(std::cin);
             return n;
         }
+        float InputFloat() {
+            float n = 0;
+            std::cin >> n;
+            error_input_check(std::cin);
+            return n;
+        }
         int InputRange(unsigned int min, unsigned int max) {
             int n = 0;
             std::cin >> n;
@@ -38,18 +45,20 @@ namespace ORDO {
             error_range_check(n, min, max);
             return n;
         }
-        std::string InputStr(const std::string& msg) {
-            std::cout << msg;
+
+        std::string InputStr(const std::string& str) {
+            std::cout << str;
             return InputStr();
         }
-        int InputInt(const std::string& msg) {
-            std::cout << msg;
+        int InputInt(const std::string& str) {
+            std::cout << str;
             return InputInt();
         }
-        int InputRange(unsigned int min, unsigned int max, const std::string& msg) {
-            std::cout << msg;
+        int InputRange(unsigned int min, unsigned int max, const std::string& str) {
+            std::cout << str;
             return InputRange(min, max);
         }
+
     }
 
 }
