@@ -12,7 +12,7 @@ namespace ORDO {
         void PrintList(const std::vector<std::pair<std::string, std::string>>& list);
         bool ListContains(const std::vector<std::string>& list, const std::string& lookFor);
         const std::string UnixTime(time_t unix_timestamp);
-        std::string GetClipboard();
+        std::string GetClipboard();//apperantly iostream and terminal can do basic ctrl+v itself... kind of depricated
 
         void console_wait();
         void console_title();

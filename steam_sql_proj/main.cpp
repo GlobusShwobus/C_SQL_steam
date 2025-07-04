@@ -1,9 +1,8 @@
-#include "Pages.h"
-#include "myhelpers.h"
-#include "Inputs.h"
 
 #include"web_request.h"
 #include "json.hpp"
+#include "Inputs.h"
+#include "myHelpers.h"
 
 using namespace ORDO;
 
@@ -71,7 +70,7 @@ void pngFileTest() {
 
     std::string textFileMessage;
 
-    auto textFile = test.request("http://127.0.0.1:8000/Desktop/testLocal/jsonFile.json", &textFileMessage);
+    auto textFile = test.request("http://127.0.0.1:8000/Desktop/testLocal/pngFile.png", &textFileMessage);
 
     std::cout << textFileMessage << "\n";
 
@@ -79,20 +78,29 @@ void pngFileTest() {
 
         std::cout << textFile.get()->contentType << "\n";
 
-        if (textFile.get()->contentType.find("application/json") != std::string::npos) {
-            auto& jsonMePlease = textFile.get()->data;
+        if (textFile.get()->contentType.find("image/") != std::string::npos) {
+            auto& imageMePlease = textFile.get()->data;
 
-            nlohmann::json jsonFileData = nlohmann::json::parse(jsonMePlease.begin(), jsonMePlease.end());
-            std::cout << jsonFileData.dump(4);
+            for (char c : imageMePlease) {
+                std::cout << c;//gibberish but works, in the future how tf do i inject it into disk?
+            }
         }
 
     }
 }
-int main() {
-    textFileTest();
-    jsonFileTest();
+void testInputsString1() {
+    std::cout << "enter: ";
+    std::string str1 = Inputs::InputStr();
+    std::cout << str1;
+}
+void testInputsString2() {
+    std::string str1 = Inputs::InputStr("enter: ");
+    std::cout << str1;
+}
 
-    
+int main() {
+
+    testInputsString2();
 
     
     return 0;
