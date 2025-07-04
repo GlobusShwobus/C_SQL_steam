@@ -4,12 +4,13 @@
 
 namespace ORDO {
 	size_t Request::callBack(void* contents, size_t size, size_t nmemb, void* userp) {
-		size_t real_size = size * nmemb;
-		RequestBlock* block = static_cast<RequestBlock*>(userp);
-		block->data.append(static_cast<char*>(contents), real_size);
-		return real_size;
+		size_t realSize = size * nmemb;
+		ResoponseBuffer* buffer = static_cast<ResoponseBuffer*>(userp);
+		char* begin = static_cast<char*>(contents);
+		buffer->data.insert(buffer->data.end(), begin, begin + realSize);
+		return realSize;
 	}
-	bool Request::requestProtocol(const std::string& url, RequestBlock& endpoint, long& httpcode, std::string* response = nullptr) {
+	bool Request::requestProtocol(const std::string& url, ResoponseBuffer& endpoint, std::string* response) {
 		CURL* curl;
 		CURLcode result;
 
@@ -21,14 +22,12 @@ namespace ORDO {
 			return false;
 		}
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());//fuck my ass, insert url as string -> get wider asshole (good i commented this)
-
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Request::callBack);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &endpoint);
 
 		curl_easy_setopt(curl, CURLOPT_CAINFO, loicense.c_str());
 
 		result = curl_easy_perform(curl);
-		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, httpcode);
 
 		if (result != CURLE_OK) {
 			curl_easy_cleanup(curl);
@@ -36,12 +35,19 @@ namespace ORDO {
 				*response = "Libcurl err: " + std::string(curl_easy_strerror(result));
 			return false;
 		}
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, endpoint.httpcode);
+		char* content_type = nullptr;
+		curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &content_type);
+		if (content_type)
+			endpoint.contentType = content_type;
 
 		curl_easy_cleanup(curl);
-
+		endpoint.success = true;
+		if (response)
+			*response = "success";
 		return true;
 	}
-	bool Request::setLoicence(const std::string& filePath, std::string* response = nullptr) {
+	bool Request::setLoicence(const std::string& filePath, std::string* response) {
 		bool result = false;
 
 		std::ifstream file(filePath);
@@ -66,23 +72,19 @@ namespace ORDO {
 		return result;
 	}
 
-	std::unique_ptr<nlohmann::json> Request::request(const std::string& url, std::string* resonse = nullptr)
+	std::unique_ptr<Request::ResoponseBuffer> Request::request(const std::string& url, std::string* resonse)
 	{
 		if (loicense.empty()) {
 			if (resonse)
 				*resonse = "Path to certificate cacert.pem not established";
 			return nullptr;
 		}
-		std::unique_ptr<RequestBlock> endpoint = std::make_unique<RequestBlock>();
-		long httpcode = 0;
+		std::unique_ptr<ResoponseBuffer> endpoint = std::make_unique<ResoponseBuffer>();
 
-		if (!requestProtocol(url, *endpoint, httpcode, resonse)) {
+		if (!requestProtocol(url, *endpoint, resonse))
+			endpoint.get()->data.clear();
 
-			if (resonse)
-				//func() http code error message here
-
-				return nullptr;
-		}
-		return std::make_unique<nlohmann::json>(nlohmann::json::parse(endpoint.get()->data));
+		//func() http code error message not here actually
+		return std::move(endpoint);
 	}
 }
