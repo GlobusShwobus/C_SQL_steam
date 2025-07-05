@@ -149,10 +149,19 @@ void testInputRange() {
 
     }
 }
+void testtitle() {
+    while (true) {
+        lazy::console_title();
+        std::cout<<"\n";
+        testInputsString1();
+        std::cout << "\n";
+        lazy::console_wait();
+        lazy::console_clear();
+    }
+}
 
 int main() {
-    testInputInt2();
-    testInputRange();
+    testtitle();
 
     
     return 0;

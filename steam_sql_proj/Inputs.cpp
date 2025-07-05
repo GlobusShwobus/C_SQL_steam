@@ -6,22 +6,23 @@ namespace ORDO {
 
         void error_input_check(std::istream& stream) {
             if (stream.fail()) {
-                stream.clear();
-                stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 throw std::runtime_error("invalid input");
             }
-            stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
         void error_range_check(int checked, unsigned int min, unsigned int max) {
             if (checked < min || checked > max) {
                 throw std::runtime_error("out of range input");
             }
         }
+        void clearInputBuffer() {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
 
         std::string InputStr() {
             std::string str;
-            if (std::cin.peek() == '\n')
-                std::cin.ignore();
+            if (!std::cin.good())
+                clearInputBuffer();
             std::getline(std::cin, str);
             error_input_check(std::cin);
             return str;

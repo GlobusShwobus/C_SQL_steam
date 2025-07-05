@@ -80,5 +80,8 @@
     <ClInclude Include="web_request.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="steamURLconstructor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ namespace ORDO {
 
         void error_input_check(std::istream& stream);;
         void error_range_check(int checked, unsigned int min, unsigned int max);
+        void clearInputBuffer();
 
         std::string InputStr();
         int InputInt();
