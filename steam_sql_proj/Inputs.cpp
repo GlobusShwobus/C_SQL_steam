@@ -15,14 +15,12 @@ namespace ORDO {
             }
         }
         void clearInputBuffer() {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            if(std::cin.rdbuf()->in_avail()>0)
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
 
         std::string InputStr() {
             std::string str;
-            if (!std::cin.good())
-                clearInputBuffer();
             std::getline(std::cin, str);
             error_input_check(std::cin);
             return str;

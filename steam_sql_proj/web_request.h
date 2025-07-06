@@ -6,6 +6,7 @@
 namespace ORDO {
 
 	class Request {
+	public:
 
 		struct ResoponseBuffer {
 			std::vector<char> data;
@@ -13,6 +14,9 @@ namespace ORDO {
 			bool success = false;
 			std::string contentType;
 		};
+
+	private:
+
 		std::string loicense;
 
 		static size_t callBack(void* contents, size_t size, size_t nmemb, void* userp);

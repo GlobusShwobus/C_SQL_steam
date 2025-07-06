@@ -151,6 +151,7 @@
     <ClCompile Include="myhelpers.cpp" />
     <ClCompile Include="Pages.cpp" />
     <ClCompile Include="Steam.cpp" />
+    <ClCompile Include="steamURLEditor.cpp" />
     <ClCompile Include="web_request.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +163,7 @@
     <ClInclude Include="MakeFile.h" />
     <ClInclude Include="Pages.h" />
     <ClInclude Include="Steam.h" />
-    <ClInclude Include="steamURLconstructor.h" />
+    <ClInclude Include="steamURlEditor.h" />
     <ClInclude Include="web_request.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

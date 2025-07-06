@@ -1,10 +1,18 @@
+#define _CRTDBG_MAP_ALLOC  
+#include <stdlib.h>  
+#include <crtdbg.h>  
+
 
 #include"web_request.h"
 #include "json.hpp"
 #include "Inputs.h"
 #include "myHelpers.h"
+#include "steamURlEditor.h"
 
 using namespace ORDO;
+/*
+SAVE LOICENSE PATH IN JSON (maybe other shit too, pobably not api key and sql psswords tho)
+*/
 
 
 void textFileTest() {
@@ -160,9 +168,80 @@ void testtitle() {
     }
 }
 
-int main() {
-    testtitle();
+void teststeamurlThing_part2(const std::unique_ptr<Request::ResoponseBuffer>& poop) {
+    if (poop.get()->success) {
 
+        std::cout << poop.get()->contentType << "\n";
+
+        if (poop.get()->contentType.find("application/json") != std::string::npos) {
+            auto& jsonMePlease = poop.get()->data;
+
+            nlohmann::json jsonFileData = nlohmann::json::parse(jsonMePlease.begin(), jsonMePlease.end());
+            std::cout << jsonFileData.dump(4);
+        }
+
+    }
+}
+void teststeamUrlThing(){
+    lazy::console_title();
+    std::cout << "\nenter api key: ";
+    Inputs::clearInputBuffer();
+    std::string apikey = Inputs::InputStr();
+    std::cout << "\nenter userid key: ";
+    Inputs::clearInputBuffer();
+    std::string userid = Inputs::InputStr();
+
+    SteamURLEditor urlthing(apikey, userid);
+    Request request("C:/Users/ADMIN/Desktop/tools/cacert.pem");
+
+    std::cout << "\nsteam user key < " << urlthing.getAPIKey() << " >\tsteam user id < " << urlthing.getUserID() << " >";
+    std::cout << "\n pick one:\n1.summary\n2.games\n3.recently played\n4.achievemnt player\n5.achievemnt global\n6.achievement schema\nenter: ";
+    int pick = Inputs::InputRange(1, 6);
+   
+    SAPI_FUNCTION func;
+    switch (pick) {
+    case 1: func = SAPI_FUNCTION::SUMMARY;            break;
+    case 2: func = SAPI_FUNCTION::GAMES;              break;
+    case 3: func = SAPI_FUNCTION::RECENTLY_PLAYED;    break;
+    case 4: func = SAPI_FUNCTION::ACHIEVEMENTS_PLAYER;break;
+    case 5: func = SAPI_FUNCTION::ACHIEVEMENTS_GLOBAL;break;
+    case 6: func = SAPI_FUNCTION::ACHIEVEMENTS_SCHEMA;break;
+    }
+
+    if (pick > 3 && pick < 7) {
+        std::cout << "enter game id: ";
+        Inputs::clearInputBuffer();
+        std::string gameid = Inputs::InputStr();
+        std::string url = urlthing.get_API_URL(func, gameid);
+        auto data = request.request(url);
+        teststeamurlThing_part2(data);
+    }
+    else {
+        std::string url = urlthing.get_API_URL(func);
+        auto data = request.request(url);
+        teststeamurlThing_part2(data);
+    }
+
+
+}
+
+
+int main() {
+    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDERR);
+    _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_ERROR, _CRTDBG_FILE_STDERR);
+    _CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+    _CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
+
+
+        lazy::console_clear();
+        teststeamUrlThing();
+        lazy::console_wait();
+
+
+
+    _CrtDumpMemoryLeaks();
     
     return 0;
 }
