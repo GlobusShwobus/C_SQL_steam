@@ -52,6 +52,8 @@ namespace ORDO {
             return text;
         }
 
+
+
         void console_wait() {
             if (std::cin.rdbuf()->in_avail() > 0)
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -59,14 +61,16 @@ namespace ORDO {
             std::cin.get();
         }
         void console_title() {
-            printf(R"(/'\_/`\ _                         
+            static constexpr std::string_view title =
+                R"(/'\_/`\ _
 |     |(_)  ___  _   _   ___ ___     __    ___     _ _
 | (_) || |/',__)( ) ( )/' _ ` _ `\ /'__`\/' _ `\ /'_` )
 | | | || |\__, \| (_) || ( ) ( ) |(  ___/| ( ) |( (_| |
 (_) (_)(_)(____/`\___/'(_) (_) (_)`\____)(_) (_)`\__,_)                                                  
-)");
-
-            printf("=====================================================================================");
+                   )";
+            static constexpr std::string_view padding =
+                "#######################################################################";
+            std::cout << title << '\n' << padding;
         }
         void console_clear() {
             system("cls");

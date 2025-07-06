@@ -18,24 +18,68 @@ namespace ORDO {
 
 	public:
 		SteamConnector() = default;
-		SteamConnector(const std::string& apiKey, const std::string& userId) :apiKey(apiKey), userId(userId) {}
+		SteamConnector(const std::string_view& apiKey, const std::string_view& userId) :apiKey(apiKey), userId(userId) {}
 
-		void setSteamAPIKey(const std::string& str) {
+		void setSteamAPIKey(const std::string_view& str) {
 			apiKey = str;
 		}
-		void setSteamUserID(const std::string& str) {
+		void setSteamUserID(const std::string_view& str) {
 			userId = str;
 		}
-		const std::string& getAPIKey() {
+		const std::string_view& getAPIKey()const {
 			return apiKey;
 		}
-		const std::string& getUserID() {
+		const std::string_view& getUserID()const {
 			return userId;
+		}
+
+		std::string get_API_URL(const SAPI_FUNCTION type) {
+			std::string url = getTemplateUrl(type);
+
+			if (!insertAPIKey(url)) {
+				url.append(" - could not find < api > insertion position");
+			}
+
+			if (!insertUserID(url)) {
+				url.append(" - could not find < user id >  insertion position");
+			}
+
+			return url;
+		}
+
+		std::string get_API_URL(const SAPI_FUNCTION type, const std::string_view& gameId) {
+			std::string url = getTemplateUrl(type);
+
+			if (!insertAPIKey(url)) {
+				url.append(" - could not find < api > insertion position");
+			}
+
+			if (!insertUserID(url)) {
+				url.append(" - could not find < user id >  insertion position");
+			}
+
+			if (!insertGameId(url, gameId)) {
+				url.append(" - could not find < gameid/appid >  insertion position");
+			}
+
+			return url;
 		}
 
 
 	private:
-
+		std::string getTemplateUrl(const SAPI_FUNCTION type) {
+			switch (type) {
+			case SAPI_FUNCTION::SUMMARY:			 return std::string(urlT_summary);
+			case SAPI_FUNCTION::GAMES:				 return std::string(urlT_games);
+			case SAPI_FUNCTION::RECENTLY_PLAYED:	 return std::string(urlT_recently_played);
+			case SAPI_FUNCTION::ACHIEVEMENTS_PLAYER: return std::string(urlT_achievement_player);
+			case SAPI_FUNCTION::ACHIEVEMENTS_GLOBAL: return std::string(urlT_achievement_global);
+			case SAPI_FUNCTION::ACHIEVEMENTS_SCHEMA: return std::string(urlT_achievement_schema);
+			default:
+				break;
+			}
+			return "error template url - incorrect or not updated type";
+		}
 		bool insertAPIKey(std::string& templateUrl)const {
 			size_t pos;
 			if (!findInsertionPoint(templateUrl, "key", pos))
@@ -54,7 +98,7 @@ namespace ORDO {
 
 			return true;
 		}
-		bool insertGameId(std::string& templateUrl, const std::string& gameId)const {
+		bool insertGameId(std::string& templateUrl, const std::string_view& gameId)const {
 			size_t pos;
 
 			if (!findInsertionPoint(templateUrl, "appid", pos)) {
@@ -67,7 +111,7 @@ namespace ORDO {
 			return true;
 		}
 
-		bool findInsertionPoint(std::string_view templateUrl, std::string_view lookFor, size_t& pos)const {
+		bool findInsertionPoint(const std::string_view& templateUrl, const std::string_view& lookFor, size_t& pos)const {
 			pos = templateUrl.find(lookFor);
 			if (pos == std::string::npos)
 				return false;
