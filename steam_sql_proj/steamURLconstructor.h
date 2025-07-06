@@ -18,18 +18,18 @@ namespace ORDO {
 
 	public:
 		SteamConnector() = default;
-		SteamConnector(const std::string_view& apiKey, const std::string_view& userId) :apiKey(apiKey), userId(userId) {}
+		SteamConnector(std::string_view apiKey, std::string_view userId) :apiKey(apiKey), userId(userId) {}
 
-		void setSteamAPIKey(const std::string_view& str) {
+		void setSteamAPIKey(std::string_view str) {
 			apiKey = str;
 		}
-		void setSteamUserID(const std::string_view& str) {
+		void setSteamUserID(std::string_view str) {
 			userId = str;
 		}
-		const std::string_view& getAPIKey()const {
+		std::string_view getAPIKey()const {
 			return apiKey;
 		}
-		const std::string_view& getUserID()const {
+		std::string_view getUserID()const {
 			return userId;
 		}
 
@@ -47,7 +47,7 @@ namespace ORDO {
 			return url;
 		}
 
-		std::string get_API_URL(const SAPI_FUNCTION type, const std::string_view& gameId) {
+		std::string get_API_URL(const SAPI_FUNCTION type, std::string_view gameId) {
 			std::string url = getTemplateUrl(type);
 
 			if (!insertAPIKey(url)) {
@@ -98,7 +98,7 @@ namespace ORDO {
 
 			return true;
 		}
-		bool insertGameId(std::string& templateUrl, const std::string_view& gameId)const {
+		bool insertGameId(std::string& templateUrl, std::string_view gameId)const {
 			size_t pos;
 
 			if (!findInsertionPoint(templateUrl, "appid", pos)) {
@@ -111,7 +111,7 @@ namespace ORDO {
 			return true;
 		}
 
-		bool findInsertionPoint(const std::string_view& templateUrl, const std::string_view& lookFor, size_t& pos)const {
+		bool findInsertionPoint(std::string_view templateUrl, std::string_view lookFor, size_t& pos)const {
 			pos = templateUrl.find(lookFor);
 			if (pos == std::string::npos)
 				return false;
