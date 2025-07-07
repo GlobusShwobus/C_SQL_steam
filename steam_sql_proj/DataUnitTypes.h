@@ -1,0 +1,12 @@
+#pragma once
+
+namespace ORDO {
+	enum class DATA_TYPE {
+		SUMMARY,
+		GAMES,
+		RECENTLY_PLAYED,
+		ACHIEVEMENTS_PLAYER,
+		ACHIEVEMENTS_GLOBAL,
+		ACHIEVEMENTS_SCHEMA
+	};
+}

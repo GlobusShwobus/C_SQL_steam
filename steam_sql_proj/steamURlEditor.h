@@ -1,15 +1,9 @@
 #pragma once
 #include <string>
 #include <string_view>
+#include "DataUnitTypes.h"
+
 namespace ORDO {
-	enum class SAPI_FUNCTION {
-		SUMMARY,
-		GAMES,
-		RECENTLY_PLAYED,
-		ACHIEVEMENTS_PLAYER,
-		ACHIEVEMENTS_GLOBAL,
-		ACHIEVEMENTS_SCHEMA
-	};
 
 	class SteamURLEditor {
 		
@@ -25,12 +19,12 @@ namespace ORDO {
 		std::string_view getAPIKey()const;
 		std::string_view getUserID()const;
 
-		std::string get_API_URL(const SAPI_FUNCTION type);
-		std::string get_API_URL(const SAPI_FUNCTION type, std::string_view gameId);
+		std::string get_API_URL(const DATA_TYPE type);
+		std::string get_API_URL(const DATA_TYPE type, std::string_view gameId);
 
 
 	private:
-		std::string getTemplateUrl(const SAPI_FUNCTION type)const;
+		std::string getTemplateUrl(const DATA_TYPE type)const;
 		bool insertAPIKey(std::string& templateUrl)const;
 		bool insertUserID(std::string& templateUrl)const;
 		bool insertGameId(std::string& templateUrl, std::string_view gameId)const;
