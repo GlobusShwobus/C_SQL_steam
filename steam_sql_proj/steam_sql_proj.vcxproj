@@ -162,6 +162,7 @@
     <ClInclude Include="logMessage.h" />
     <ClInclude Include="MakeFile.h" />
     <ClInclude Include="Pages.h" />
+    <ClInclude Include="sqlify.h" />
     <ClInclude Include="Steam.h" />
     <ClInclude Include="steamURlEditor.h" />
     <ClInclude Include="web_request.h" />

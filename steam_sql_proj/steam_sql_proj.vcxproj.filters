@@ -25,6 +25,9 @@
     <Filter Include="steam">
       <UniqueIdentifier>{96c545aa-fc8a-45cb-8357-9980899ff412}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sqlify">
+      <UniqueIdentifier>{11e3b94a-4566-46a6-a924-a8ce97d85ed9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="steamURlEditor.h">
       <Filter>steam</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlify.h">
+      <Filter>sqlify</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

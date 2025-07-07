@@ -14,7 +14,7 @@ namespace ORDO {
 		return userId;
 	}
 
-	std::string SteamURLEditor::get_API_URL(const DATA_TYPE type) {
+	std::string SteamURLEditor::get_API_URL(const SAPI_FUNCTIONS type) {
 		std::string url = getTemplateUrl(type);
 
 		if (!insertAPIKey(url)) {
@@ -28,7 +28,7 @@ namespace ORDO {
 		return url;
 	}
 
-	std::string SteamURLEditor::get_API_URL(const DATA_TYPE type, std::string_view gameId) {
+	std::string SteamURLEditor::get_API_URL(const SAPI_FUNCTIONS type, std::string_view gameId) {
 		std::string url = getTemplateUrl(type);
 
 		if (!insertAPIKey(url)) {
@@ -46,14 +46,14 @@ namespace ORDO {
 		return url;
 	}
 
-	std::string SteamURLEditor::getTemplateUrl(const DATA_TYPE type)const {
+	std::string SteamURLEditor::getTemplateUrl(const SAPI_FUNCTIONS type)const {
 		switch (type) {
-		case DATA_TYPE::SUMMARY:			 return std::string(urlT_summary);
-		case DATA_TYPE::GAMES:				 return std::string(urlT_games);
-		case DATA_TYPE::RECENTLY_PLAYED:	 return std::string(urlT_recently_played);
-		case DATA_TYPE::ACHIEVEMENTS_PLAYER: return std::string(urlT_achievement_player);
-		case DATA_TYPE::ACHIEVEMENTS_GLOBAL: return std::string(urlT_achievement_global);
-		case DATA_TYPE::ACHIEVEMENTS_SCHEMA: return std::string(urlT_achievement_schema);
+		case SAPI_FUNCTIONS::SUMMARY:			 return std::string(urlT_summary);
+		case SAPI_FUNCTIONS::GAMES:				 return std::string(urlT_games);
+		case SAPI_FUNCTIONS::RECENTLY_PLAYED:	 return std::string(urlT_recently_played);
+		case SAPI_FUNCTIONS::ACHIEVEMENTS_PLAYER: return std::string(urlT_achievement_player);
+		case SAPI_FUNCTIONS::ACHIEVEMENTS_GLOBAL: return std::string(urlT_achievement_global);
+		case SAPI_FUNCTIONS::ACHIEVEMENTS_SCHEMA: return std::string(urlT_achievement_schema);
 		default:
 			break;
 		}
@@ -100,16 +100,16 @@ namespace ORDO {
 	}
 
 
-	std::string SAPItoString(const DATA_TYPE t) {
+	std::string SAPItoString(const SAPI_FUNCTIONS t) {
 		std::string s;
 
 		switch (t) {
-		case DATA_TYPE::SUMMARY:			 s = "player summary";			   break;
-		case DATA_TYPE::GAMES:				 s = "player owned games";		   break;
-		case DATA_TYPE::RECENTLY_PLAYED:	 s = "player recent activity";	   break;
-		case DATA_TYPE::ACHIEVEMENTS_PLAYER: s = "player achievements for id"; break;
-		case DATA_TYPE::ACHIEVEMENTS_GLOBAL: s = "global achievements for id"; break;
-		case DATA_TYPE::ACHIEVEMENTS_SCHEMA: s = "id achievement schema";	   break;
+		case SAPI_FUNCTIONS::SUMMARY:			  s = "player summary";			   break;
+		case SAPI_FUNCTIONS::GAMES:				  s = "player owned games";		   break;
+		case SAPI_FUNCTIONS::RECENTLY_PLAYED:	  s = "player recent activity";	   break;
+		case SAPI_FUNCTIONS::ACHIEVEMENTS_PLAYER: s = "player achievements for id"; break;
+		case SAPI_FUNCTIONS::ACHIEVEMENTS_GLOBAL: s = "global achievements for id"; break;
+		case SAPI_FUNCTIONS::ACHIEVEMENTS_SCHEMA: s = "id achievement schema";	   break;
 		default:
 			s = "BIG WRONG WII UUU WII UU";
 			break;
