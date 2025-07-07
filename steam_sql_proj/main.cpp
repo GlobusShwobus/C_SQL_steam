@@ -198,14 +198,14 @@ void teststeamUrlThing(){
     std::cout << "\n pick one:\n1.summary\n2.games\n3.recently played\n4.achievemnt player\n5.achievemnt global\n6.achievement schema\nenter: ";
     int pick = Inputs::InputRange(1, 6);
    
-    DATA_TYPE func;
+    SAPI_FUNCTIONS func;
     switch (pick) {
-    case 1: func = DATA_TYPE::SUMMARY;            break;
-    case 2: func = DATA_TYPE::GAMES;              break;
-    case 3: func = DATA_TYPE::RECENTLY_PLAYED;    break;
-    case 4: func = DATA_TYPE::ACHIEVEMENTS_PLAYER;break;
-    case 5: func = DATA_TYPE::ACHIEVEMENTS_GLOBAL;break;
-    case 6: func = DATA_TYPE::ACHIEVEMENTS_SCHEMA;break;
+    case 1: func = SAPI_FUNCTIONS::SUMMARY;            break;
+    case 2: func = SAPI_FUNCTIONS::GAMES;              break;
+    case 3: func = SAPI_FUNCTIONS::RECENTLY_PLAYED;    break;
+    case 4: func = SAPI_FUNCTIONS::ACHIEVEMENTS_PLAYER;break;
+    case 5: func = SAPI_FUNCTIONS::ACHIEVEMENTS_GLOBAL;break;
+    case 6: func = SAPI_FUNCTIONS::ACHIEVEMENTS_SCHEMA;break;
     }
 
     if (pick > 3 && pick < 7) {

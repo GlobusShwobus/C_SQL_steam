@@ -39,4 +39,26 @@ namespace ORDO {
 
 	};
 
+	struct sqlSummaryTable {
+		uint64_t playerId = 0;
+		std::string name;
+		std::string logoffDate;
+		std::string creationDate;
+		std::string countryCode;
+	};
+
+	struct sqlGamesTable {
+		int gameCodeId = 0;
+		std::string gameName;
+		int playTimeMinutes = 0;
+		std::string lastPlayedData;
+	};
+
+	struct sqlActivityTable {
+		int gameId = 0;
+		std::string gameName;
+		int playtimeLastTwoWeeks = 0;
+		int playtimeForever = 0;
+	};
+
 }
