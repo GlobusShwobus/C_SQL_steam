@@ -42,15 +42,17 @@ namespace ORDO {
 	struct sqlSummaryTable {
 		uint64_t playerId = 0;
 		std::string name;
+		std::string accountUrl;
 		std::string logoffDate;
 		std::string creationDate;
 		std::string countryCode;
 	};
 
 	struct sqlGamesTable {
-		int gameCodeId = 0;
+		int gameId = 0;
+		int gameVersion = 0;//not sure currently if i can extract this, it's located in the achievement metadata, which is kind of fucky
 		std::string gameName;
-		int playTimeMinutes = 0;
+		int playTimeForever = 0;
 		std::string lastPlayedData;
 	};
 
@@ -61,4 +63,12 @@ namespace ORDO {
 		int playtimeForever = 0;
 	};
 
+	struct sqlAchievemntTable {
+		std::string gameName;
+		std::string achievementName;
+		std::string description;
+		bool isAchieved;
+		std::string unlockDate;
+		float globalCompRate;
+	};
 }
