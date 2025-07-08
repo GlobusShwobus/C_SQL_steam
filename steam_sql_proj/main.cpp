@@ -29,7 +29,7 @@ void textFileTest() {
 
     std::cout << textFileMessage<<"\n";
 
-    if (textFile.get()->success) {
+    if (textFile.get()->isSuccess) {
 
         std::cout << textFile.get()->contentType<<"\n";
 
@@ -55,7 +55,7 @@ void jsonFileTest() {
 
     std::cout << textFileMessage<<"\n";
 
-    if (textFile.get()->success) {
+    if (textFile.get()->isSuccess) {
 
         std::cout << textFile.get()->contentType<<"\n";
 
@@ -82,7 +82,7 @@ void pngFileTest() {
 
     std::cout << textFileMessage << "\n";
 
-    if (textFile.get()->success) {
+    if (textFile.get()->isSuccess) {
 
         std::cout << textFile.get()->contentType << "\n";
 
@@ -147,7 +147,7 @@ void testInputRange() {
 
         try {
             std::cout << "enter: ";
-            int n = Inputs::InputRange(5, 50);
+            int n = Inputs::InputRangeInt(5, 50);
             std::cout << n;
             loop = false;
         }
@@ -169,7 +169,7 @@ void testtitle() {
 }
 
 void teststeamurlThing_part2(const std::unique_ptr<Request::ResoponseBuffer>& poop) {
-    if (poop.get()->success) {
+    if (poop.get()->isSuccess) {
 
         std::cout << poop.get()->contentType << "\n";
 
@@ -196,7 +196,7 @@ void teststeamUrlThing(){
 
     std::cout << "\nsteam user key < " << urlthing.getAPIKey() << " >\tsteam user id < " << urlthing.getUserID() << " >";
     std::cout << "\n pick one:\n1.summary\n2.games\n3.recently played\n4.achievemnt player\n5.achievemnt global\n6.achievement schema\nenter: ";
-    int pick = Inputs::InputRange(1, 6);
+    int pick = Inputs::InputRangeInt(1, 6);
    
     SAPI_FUNCTIONS func;
     switch (pick) {

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace ORDO {
@@ -8,22 +9,21 @@ namespace ORDO {
         INFO, WARN, BAD, FATAL, JUNK
     };
     struct basic_log {
-        level logLevel = level::JUNK;
+        level severity = level::JUNK;
         std::string info;
-        basic_log() = delete;
-        basic_log(const level type, const std::string& str) :logLevel(type), info(str) {}
-        basic_log(const level type, std::string&& str) :logLevel(type), info(std::move(str)) {}
     };
 
     class Logs {
-        static constexpr std::string noLogs = "no logs";
+        static constexpr std::string_view noLogs = "no logs";
     public:
         static std::vector<basic_log>& GetLogs();
-        static void Add(basic_log&& log);
+        static void Add(basic_log&& what);
+        static void Add(const level severity, std::string_view what);
         static void Clear();
-        static void ClearType(const level type);
-        static const std::string& GetLastLog();
-        static const std::string& GetLastLog(const level type);
+        static void ClearType(const level severity);
+
+        static std::string_view GetLastLog();
+        static std::string_view GetLastLog(const level severity);
     };
 
 }

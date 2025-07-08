@@ -9,8 +9,8 @@ namespace ORDO {
                 throw std::runtime_error("invalid input");
             }
         }
-        void error_range_check(int checked, unsigned int min, unsigned int max) {
-            if (checked < min || checked > max) {
+        void error_range_check(int num, unsigned int min, unsigned int max) {
+            if (num < min || num > max) {
                 throw std::runtime_error("out of range input");
             }
         }
@@ -37,7 +37,7 @@ namespace ORDO {
             error_input_check(std::cin);
             return n;
         }
-        int InputRange(unsigned int min, unsigned int max) {
+        int InputRangeInt(unsigned int min, unsigned int max) {
             int n = 0;
             std::cin >> n;
             error_input_check(std::cin);
@@ -55,7 +55,7 @@ namespace ORDO {
         }
         int InputRange(unsigned int min, unsigned int max, const std::string& str) {
             std::cout << str;
-            return InputRange(min, max);
+            return InputRangeInt(min, max);
         }
 
     }

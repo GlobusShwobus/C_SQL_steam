@@ -6,36 +6,35 @@ namespace ORDO {
         static std::unique_ptr<std::vector<basic_log>> logs = std::make_unique<std::vector<basic_log>>();
         return *logs;
     }
-    void Logs::Add(basic_log&& log) {
-        GetLogs().emplace_back(std::move(log));
+    void Logs::Add(basic_log&& what) {
+        GetLogs().emplace_back(std::move(what));
+    }
+    void Logs::Add(const level severity, std::string_view what) {
+        GetLogs().emplace_back(basic_log{ severity, std::string(what) });
     }
     void Logs::Clear() {
         GetLogs().clear();
     }
-    void Logs::ClearType(const level type) {
+    void Logs::ClearType(const level severity) {
         auto& logs = Logs::GetLogs();
-        logs.erase(std::remove_if(logs.begin(), logs.end(), [type](const basic_log& log) {
-            return log.logLevel == type;
+        logs.erase(std::remove_if(logs.begin(), logs.end(), [severity](const basic_log& log) {
+            return log.severity == severity;
             }), logs.end());
     }
-    const std::string& Logs::GetLastLog() {
+    std::string_view Logs::GetLastLog() {
         auto& logs = Logs::GetLogs();
-        if (!logs.empty()) {
-            return logs.back().info;
-        }
-        else {
-            return noLogs;
-        }
+        return logs.empty() ? noLogs : logs.back().info;
     }
-    const std::string& Logs::GetLastLog(const level type) {
+    std::string_view Logs::GetLastLog(const level severity) {
         auto& logs = Logs::GetLogs();
-        const std::string* str = nullptr;
+        std::string_view view = noLogs;
 
-        for (const auto& log : logs) {
-            if (log.logLevel == type) {
-                str = &log.info;
+        for (auto log = logs.rbegin(); log != logs.rend(); ++log) {
+            if (log->severity == severity) {
+                view = log->info;
+                break;
             }
         }
-        return str ? *str : noLogs;
+        return view;
     }
 }

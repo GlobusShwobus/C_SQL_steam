@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <string_view>
 #include <vector>
 #include <memory>
 
@@ -11,7 +12,7 @@ namespace ORDO {
 		struct ResoponseBuffer {
 			std::vector<char> data;
 			long httpcode = 0;
-			bool success = false;
+			bool isSuccess = false;
 			std::string contentType;
 		};
 
@@ -20,15 +21,15 @@ namespace ORDO {
 		std::string loicense;
 
 		static size_t callBack(void* contents, size_t size, size_t nmemb, void* userp);
-		bool requestProtocol(const std::string& url, ResoponseBuffer& endpoint, std::string* response = nullptr);
+		bool requestProtocol(std::string_view url, ResoponseBuffer& reciever, std::string* extraInfo = nullptr);
 
 	public:
 		Request() = default;
-		Request(const std::string& filePath, std::string* response = nullptr) {
-			setLoicence(filePath, response);
+		Request(std::string_view filePath, std::string* extraInfo = nullptr) {
+			setLoicence(filePath, extraInfo);
 		}
-		bool setLoicence(const std::string& filePath, std::string* response = nullptr);
-		std::unique_ptr<ResoponseBuffer> request(const std::string& url, std::string* resonse = nullptr);
+		bool setLoicence(std::string_view filePath, std::string* extraMessage = nullptr);
+		std::unique_ptr<ResoponseBuffer> request(std::string_view url, std::string* extraInfo = nullptr);
 	};
 
 }
