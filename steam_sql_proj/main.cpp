@@ -224,7 +224,9 @@ void teststeamUrlThing(){
 
 
 }
-
+/*
+* possible to do a vanity check for steam API to check validity < ResolveVanityURL >
+*/
 
 int main() {
     _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);

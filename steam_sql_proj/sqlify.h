@@ -65,6 +65,7 @@ namespace ORDO {
 
 	struct sqlAchievemntTable {
 		std::string gameName;
+		std::string achievementID;
 		std::string achievementName;
 		std::string description;
 		bool isAchieved;
