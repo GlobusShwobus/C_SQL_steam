@@ -46,6 +46,9 @@ namespace ORDO {
 		static constexpr std::string_view urlT_summary            = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=&steamids=&format=json";
 		static constexpr std::string_view urlT_games              = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=&steamid=&include_appinfo=true&include_played_free_games=true&format=json";
 		static constexpr std::string_view urlT_recently_played    = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=&steamid=&format=json";
+
+		static constexpr std::string_view urlT_userSteamLevel     = "http://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=&steamid=";
+		static constexpr std::string_view urlT_userSteamBadges    = "http://api.steampowered.com/IPlayerService/GetBadges/v1/?key=&steamid=";
 	};
 
 
