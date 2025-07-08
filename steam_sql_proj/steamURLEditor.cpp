@@ -14,33 +14,38 @@ namespace ORDO {
 		return userId;
 	}
 
-	std::string SteamURLEditor::get_API_URL(const SAPI_FUNCTIONS type) {
+	std::string SteamURLEditor::get_API_URL(const SAPI_FUNCTIONS type, std::string* extraInfo) {
 		std::string url = getTemplateUrl(type);
 
 		if (!insertAPIKey(url)) {
-			url.append(" - could not find < api > insertion position");
+			if (extraInfo)
+				*extraInfo = " - could not find < api > insertion position";
 		}
 
 		if (!insertUserID(url)) {
-			url.append(" - could not find < user id >  insertion position");
+			if (extraInfo)
+				*extraInfo = " - could not find < user id >  insertion position";
 		}
 
 		return url;
 	}
 
-	std::string SteamURLEditor::get_API_URL(const SAPI_FUNCTIONS type, std::string_view gameId) {
+	std::string SteamURLEditor::get_API_URL(const SAPI_FUNCTIONS type, std::string_view gameId, std::string* extraInfo) {
 		std::string url = getTemplateUrl(type);
 
 		if (!insertAPIKey(url)) {
-			url.append(" - could not find < api > insertion position");
+			if (extraInfo)
+				*extraInfo = " - could not find < api > insertion position";
 		}
 
 		if (!insertUserID(url)) {
-			url.append(" - could not find < user id >  insertion position");
+			if (extraInfo)
+				*extraInfo = " - could not find < user id >  insertion position";
 		}
 
 		if (!insertGameId(url, gameId)) {
-			url.append(" - could not find < gameid/appid >  insertion position");
+			if (extraInfo)
+				*extraInfo = " - could not find < gameid/appid >  insertion position";
 		}
 
 		return url;

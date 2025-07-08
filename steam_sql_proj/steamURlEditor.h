@@ -27,8 +27,9 @@ namespace ORDO {
 		std::string_view getAPIKey()const;
 		std::string_view getUserID()const;
 
-		std::string get_API_URL(const SAPI_FUNCTIONS type);
-		std::string get_API_URL(const SAPI_FUNCTIONS type, std::string_view gameId);
+		// TODO: for get_API_URL edit extraInfo error message from a single place...
+		std::string get_API_URL(const SAPI_FUNCTIONS type, std::string* extraInfo = nullptr);
+		std::string get_API_URL(const SAPI_FUNCTIONS type, std::string_view gameId, std::string* extraInfo = nullptr);
 
 
 	private:
