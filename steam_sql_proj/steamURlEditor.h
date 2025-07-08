@@ -40,7 +40,7 @@ namespace ORDO {
 
 		bool findInsertionPoint(std::string_view templateUrl, std::string_view lookFor, size_t& pos)const;
 
-		static constexpr std::string_view urlT_achievement_schema = "https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0001/?appid=&name=1&description=1&key=&steamid=&format=json";
+		static constexpr std::string_view urlT_achievement_schema = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=&appid=&l=en";
 		static constexpr std::string_view urlT_achievement_global = "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=&format=json";
 		static constexpr std::string_view urlT_achievement_player = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=&steamid=&appid=&l=en";
 		static constexpr std::string_view urlT_summary            = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=&steamids=&format=json";
