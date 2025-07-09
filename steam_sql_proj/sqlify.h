@@ -6,7 +6,7 @@
 namespace ORDO {
 
 
-	class sqlInjector {
+	class sqlUser {
 
 		std::string serverIP;
 		std::string serverName;
@@ -14,8 +14,8 @@ namespace ORDO {
 
 	public:
 
-		sqlInjector() = default;
-		sqlInjector(std::string_view IP, std::string_view server_name, std::string_view password)
+		sqlUser() = default;
+		sqlUser(std::string_view IP, std::string_view server_name, std::string_view password)
 			:serverIP(IP), serverName(server_name), serverPassword(password) {}
 
 		void setServerIP(std::string_view ip) {
@@ -39,26 +39,39 @@ namespace ORDO {
 
 	};
 
+	class sqlConnection {
+		// SIMILAR TO FILESTREAMS
+		// 
+		//pointers to connection
+		//pointer to statement
+		//other
+
+		//functions if good, inject, close
+		//destructor does automatic close as well
+	};
+
+
 	struct sqlSummaryTable {
-		uint64_t playerId = 0;
 		std::string name;
 		std::string accountUrl;
 		std::string logoffDate;
 		std::string creationDate;
 		std::string countryCode;
+		uint64_t playerId = 0;
+		int playerLevel;
 	};
 
 	struct sqlGamesTable {
+		std::string gameName;
+		std::string lastPlayedData;
 		int gameId = 0;
 		int gameVersion = 0;//not sure currently if i can extract this, it's located in the achievement metadata, which is kind of fucky
-		std::string gameName;
 		int playTimeForever = 0;
-		std::string lastPlayedData;
 	};
 
 	struct sqlActivityTable {
-		int gameId = 0;
 		std::string gameName;
+		int gameId = 0;
 		int playtimeLastTwoWeeks = 0;
 		int playtimeForever = 0;
 	};
@@ -68,8 +81,8 @@ namespace ORDO {
 		std::string achievementID;
 		std::string achievementName;
 		std::string description;
-		bool isAchieved;
 		std::string unlockDate;
 		float globalCompRate;
+		bool isAchieved;
 	};
 }
