@@ -40,15 +40,15 @@ namespace ORDO {
 
 		bool findInsertionPoint(std::string_view templateUrl, std::string_view lookFor, size_t& pos)const;
 
-		static constexpr std::string_view urlT_achievement_schema = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=&appid=&l=en";
-		static constexpr std::string_view urlT_achievement_global = "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=&format=json";
-		static constexpr std::string_view urlT_achievement_player = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=&steamid=&appid=&l=en";
+		static constexpr std::string_view urlT_achievement_schema = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=&appid=&l=en";//only if need some logo urls, otherwise worse than player in every way
+		static constexpr std::string_view urlT_achievement_global = "https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=&format=json";//only good for global % completion
+		static constexpr std::string_view urlT_achievement_player = "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=&steamid=&appid=&l=en";//this one is better than schema, use this
 		static constexpr std::string_view urlT_summary            = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=&steamids=&format=json";
-		static constexpr std::string_view urlT_games              = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=&steamid=&include_appinfo=true&include_played_free_games=true&format=json";
+		static constexpr std::string_view urlT_games              = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=&steamid=&include_appinfo=true&include_played_free_games=true&format=json";//get game ids from here
 		static constexpr std::string_view urlT_recently_played    = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=&steamid=&format=json";
 
-		static constexpr std::string_view urlT_userSteamLevel     = "http://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=&steamid=";
-		static constexpr std::string_view urlT_userSteamBadges    = "http://api.steampowered.com/IPlayerService/GetBadges/v1/?key=&steamid=";
+		static constexpr std::string_view urlT_userSteamLevel     = "http://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=&steamid=";//use this for steam level
+		static constexpr std::string_view urlT_userSteamBadges    = "http://api.steampowered.com/IPlayerService/GetBadges/v1/?key=&steamid=";//also steam level, but no use for other data in current scope, not bad tho
 	};
 
 
