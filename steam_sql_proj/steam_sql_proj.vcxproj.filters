@@ -28,6 +28,9 @@
     <Filter Include="sqlify">
       <UniqueIdentifier>{11e3b94a-4566-46a6-a924-a8ce97d85ed9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NumberGenerator">
+      <UniqueIdentifier>{0ec8653c-ecf2-4ee7-8f0f-49869c6885c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="steamURLEditor.cpp">
       <Filter>steam</Filter>
+    </ClCompile>
+    <ClCompile Include="myDataStructs.cpp">
+      <Filter>sqlify</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberGenerator.cpp">
+      <Filter>NumberGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="sqlify.h">
       <Filter>sqlify</Filter>
+    </ClInclude>
+    <ClInclude Include="myDataStructs.h">
+      <Filter>sqlify</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberGenerator.h">
+      <Filter>NumberGenerator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
