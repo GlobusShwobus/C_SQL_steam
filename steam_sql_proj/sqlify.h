@@ -10,9 +10,6 @@
 #include <mysql_connection.h>//for connection
 #include <cppconn/driver.h>  //for connecting driver with connector
 
-#include "NumberGenerator.h"//cpp
-
-
 namespace ORDO {
 
 
@@ -63,6 +60,7 @@ namespace ORDO {
 
 		sql::mysql::MySQL_Driver* mDriver = nullptr;
 		std::unique_ptr<sql::Connection> mConnect = nullptr;
+		std::unique_ptr<sql::Statement> mStatement = nullptr;
 		bool mIsGood = false;
 		bool mIsSchemaSet = false;
 		std::string SSQLStreamError;
@@ -118,23 +116,16 @@ namespace ORDO {
 		bool connect(std::string_view user, std::string_view password) {
 			return Connect(defaultLocalServer, user, password);
 		}
-		bool establishSchema()
-		{
-			const std::string name = GenerateRandomName("LANDING_");
-			const std::string cmdStatement = "CREATE DATABASE " + name + ";";
-			try {
-				std::unique_ptr<sql::Statement> statement(mConnect->createStatement());
-				statement->execute(cmdStatement);
-				mIsSchemaSet = true;
-				return true;
-			}
-			catch (const sql::SQLException& expt) {
-				SSQLStreamError = "Schema creation error: " + std::string(expt.what());
-				mIsSchemaSet = false;
-			}
-			return false;
+		sql::Statement& acquireStatement() {
+			if (!mConnect)
+				throw std::runtime_error("connection not established (getStatementAccess)");
+			if (!mStatement)
+				mStatement = std::unique_ptr<sql::Statement>(mConnect->createStatement());
+			return *mStatement;
 		}
-
+		void CloseStatement() {
+			mStatement.release();
+		}
 
 		bool isGood()const {
 			return mIsGood;
@@ -165,31 +156,49 @@ need internal prepared statement
 
 */
 	};
-
-	std::string GenerateRandomName(std::string prefix = "") {
-		static constexpr int ASCII_NUM_START = 48;
-		static constexpr int ASCII_NUM_END = 57;
-		static constexpr int ASCII_BIGCHAR_START = 65;
-		static constexpr int ASCII_BIGCHAR_END = 90;
-		static constexpr int ASCII_SMALLCHAR_START = 97;
-		static constexpr int ASCII_SMALLCHAR_END = 122;
-
-		NumberGenerator rng;
-
-		for (int i = 0; i < 10; i++)
-		{
-			int dice = rng.getRandInt(0, 2);
-			char c;
-			switch (dice) {
-			case 0:c = rng.getRandInt(ASCII_NUM_START      , ASCII_NUM_END);	   break;
-			case 1:c = rng.getRandInt(ASCII_BIGCHAR_START  , ASCII_BIGCHAR_END);   break;
-			case 2:c = rng.getRandInt(ASCII_SMALLCHAR_START, ASCII_SMALLCHAR_END); break;
-			default:
-				printf("random name generation RNG missfire\n");
-				continue;
-			}
-			prefix.push_back(c);
-		}
-		return prefix;
-	}
+    //THIS SHOULD BE IN SOME SCRIPTING PART OF THE CODE NOT HERE, TOO MUCH RESPONSIBILITY
+	//bool establishSchema()
+	//{
+	//	const std::string name = GenerateRandomName("LANDING_");
+	//	const std::string cmdStatement = "CREATE DATABASE " + name + ";";
+	//	try {
+	//		std::unique_ptr<sql::Statement> statement(mConnect->createStatement());
+	//		statement->execute(cmdStatement);
+	//		mIsSchemaSet = true;
+	//		return true;
+	//	}
+	//	catch (const sql::SQLException& expt) {
+	//		SSQLStreamError = "Schema creation error: " + std::string(expt.what());
+	//		mIsSchemaSet = false;
+	//	}
+	//	return false;
+	//}
+	
+	//THIS TOO
+	//std::string GenerateRandomName(std::string prefix = "") {
+	//	static constexpr int ASCII_NUM_START = 48;
+	//	static constexpr int ASCII_NUM_END = 57;
+	//	static constexpr int ASCII_BIGCHAR_START = 65;
+	//	static constexpr int ASCII_BIGCHAR_END = 90;
+	//	static constexpr int ASCII_SMALLCHAR_START = 97;
+	//	static constexpr int ASCII_SMALLCHAR_END = 122;
+	//
+	//	NumberGenerator rng;
+	//
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		int dice = rng.getRandInt(0, 2);
+	//		char c;
+	//		switch (dice) {
+	//		case 0:c = rng.getRandInt(ASCII_NUM_START      , ASCII_NUM_END);	   break;
+	//		case 1:c = rng.getRandInt(ASCII_BIGCHAR_START  , ASCII_BIGCHAR_END);   break;
+	//		case 2:c = rng.getRandInt(ASCII_SMALLCHAR_START, ASCII_SMALLCHAR_END); break;
+	//		default:
+	//			printf("random name generation RNG missfire\n");
+	//			continue;
+	//		}
+	//		prefix.push_back(c);
+	//	}
+	//	return prefix;
+	//}
 }
